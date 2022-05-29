@@ -122,3 +122,4 @@ public:
 //cv::trace()	计算一个矩阵的迹
 //cv::transform()	对矩阵的每个元素应用矩阵变换
 //cv::transpose()	计算矩阵的转置矩阵
+//hhh
