@@ -40,80 +40,85 @@ public:
     Matrix add(const Matrix &m1, const Matrix &m2);
 
     Matrix subtract(const Matrix &m1, const Matrix &m2);
+    
+    Matrix mul(const double sc);
+
+    Matrix divide(const double sc);
+
 
     Matrix operator+(const Matrix&m);
 
 };
 
-//cv::abs()	¾ØÕóÄÚËùÓÐÔªËØÈ¡¾ø¶ÔÖµ²¢·µ»Ø½á¹û
-//cv::absdiff()	¼ÆËãÁ½¸ö¾ØÕó²îÖµµÄ¾ø¶ÔÖµ²¢·µ»Ø½á¹û
-//cv::add()	Á½¸ö¾ØÕóÖðÔªËØÏà¼Ó
-//cv::addWeighted()	Á½¸ö¾ØÕóÖðÔªËØ¼ÓÈ¨ÇóºÍ£¬¿ÉÒÔÀí½âÎªAlpha»ìºÏ
-//cv::bitwise_and()	Á½¸ö¾ØÕóÖðÔªËØ°´Î»ÓëÔËËã
-//cv::bitwise_not()	Á½¸ö¾ØÕóÖðÔªËØ°´Î»·ÇÔËËã
-//cv::bitwise_or()	Á½¸ö¾ØÕóÖðÔªËØ°´Î»»òÔËËã
-//cv::bitwise_xor()	Á½¸ö¾ØÕóÖðÔªËØ°´Î»Òì»òÔËËã
-//cv::calcCovarMatrix()	¼ÆËãÒ»×énÎ¬ÏòÁ¿µÄÐ­·½²î
-//cv::cartToPolar()	¼ÆËã¶þÎ¬ÏòÁ¿µÄ½Ç¶ÈºÍ·ù¶È
-//cv::checkRange()	¼ì²é¾ØÕóµÄÎÞÐ§Öµ
-//cv::compare()	¶ÔÁ½¸ö¾ØÕóÖÐµÄËùÓÐÔªËØÓ¦ÓÃÒ»¸öÖ¸¶¨µÄ±È½ÏÔËËã·û
-//cv::completeSymm()	Í¨¹ý½«Ò»°ëÔªËØ¸´ÖÆµ½ÁíÒ»°ëÊ¹µÃ¾ØÕó¶Ô³Æ
-//cv::convertScaleAbs()	Ëõ·Å¾ØÕó£¬È¡¾ø¶ÔÖµ£¬È»ºó½«ÆäÖÐÊý¾Ý¸ñÊ½×ª»¯Îª8Î»ÎÞ·ûºÅÐÍ
-//cv::countNonZero()	¼ÆËã¾ØÕóÖÐµÄ·ÇÁãÔªËØ
-//cv::arrToMat()	½«2.1°æ±¾Ö®Ç°µÄÊý×é×ª»¯Îªcv::MatµÄÊµÀý
-//cv::dct()	¼ÆËã¾ØÕóµÄÀëÉ¢ÓàÏÒ±ä»»
-//cv::determinant()	¼ÆËã·½ÕóµÄÐÐÁÐÊ½
-//cv::dft()	¼ÆËã¾ØÕóµÄÀëÉ¢¸µÁ¢Ò¶±ä»»
-//cv::divide()	¶ÔÁ½¸ö¾ØÕóÖ´ÐÐÖðÔªËØ³ý·¨ÔËËã
-//cv::eigen()	¼ÆËã·½ÕëµÄÌØÕ÷ÖµºÍÌØÕ÷ÏòÁ¿
-//cv::exp()	¶Ô¾ØÕóÖ´ÐÐÖðÔªËØÇóÖ¸ÊýÃÝÔËËã
-//cv::extractImageCOI()	´Ó2.1Ö®Ç°°æ±¾µÄÊý×éÖÐÌáÈ¡µ¥¸öÍ¨µÀ
-//cv::flip()	ÈÆÖ¸¶¨Öá·­×ª¾ØÕó
-//cv::gemm()	Ö´ÐÐ¹ãÒåµÄ¾ØÕó³Ë·¨
-//cv::getConvertElem()	»ñÈ¡µ¥¸öÏñËØµÄÀàÐÍ×ª»»º¯Êý
-//cv::getConvertScaleElem()	»ñÈ¡µ¥¸öÏñËØµÄÀàÐÍ×ª»»ºÍËõ·Åº¯Êý
-//cv::idct()	¼ÆËã¾ØÕóµÄÀëÉ¢ÓàÏÒÄæ±ä»»
-//cv::idft()	¼ÆËã¾ØÕóµÄÀëÉ¢¸µÁ¢Ò¶Äæ±ä»»
-//cv::inRange()	²âÊÔ¾ØÕóµÄÔªËØÊÇ·ñ°üº¬ÔÚÆäËûÁ½¸ö¾ØÕóµÄÖµÖ®¼ä
-//cv::invert()	Çó·½ÕóµÄÄæ
-//cv::log()	ÖðÔªËØ¼ÆËã×ÔÈ»¶ÔÊý
-//cv::magnitude()	¼ÆËã¶þÎ¬ÏòÁ¿µÄ·ù¶È
-//cv::LUT()	½«¾ØÕó×ª»»Îª²éÕÒ±íµÄË÷Òý
-//cv::Mahalanobis()	¼ÆËãÁ½¸öÏòÁ¿Ö®¼äµÄÂíÊÏ¾àÀë
-//cv::max()	ÖðÔªËØÇóÁ½¸ö¾ØÕóÖ®¼äµÄ×î´óÖµ
-//cv::mean()	¼ÆËã¾ØÕóÔªËØµÄÆ½¾ùÖµ
-//cv::meanStdDev()	¼ÆËãÊý×éÔªËØµÄ¾ùÖµºÍ±ê×¼²î
-//cv::merge()	½«¶à¸öµ¥Í¨µÀ¾ØÕóºÏ²¢ÎªÒ»¸ö¶àÍ¨µÀ¾ØÕó
-//cv::min()	ÖðÔªËØÇóÁ½¸ö¾ØÕóÖ®¼äµÄ×îÐ¡Öµ
-//cv::minMaxLoc()	ÔÚ¾ØÕóÖÐÑ°ÕÒ×î´óºÍ×îÐ¡Öµ
-//cv::mixChannels()	´òÂÒ´ÓÊäÈë¾ØÕóµ½Êä³ö¾ØÕóµÄÍ¨µÀ
-//cv::mulSpectrums()	¶ÔÁ½¸ö¸µÁ¢Ò¶Æ×¾ØÕóÖ´ÐÐÖðÔªËØ³Ë·¨ÔËËã
-//cv::multiply()	¶ÔÁ½¸ö¾ØÕóÖ´ÐÐÖðÔªËØ³Ë·¨ÔËËã
-//cv::mulTransposed()	¼ÆËã¾ØÕóºÍÆä×ªÖÃ¶ÔÖðÔªËØ³Ë»ý
-//cv::norm()	ÔÚÁ½¸ö¾ØÕóÖ®¼ä¼ÆËã¹éÒ»»¯Ïà¹ØÏµÊý
-//cv::normalize()	½«¾ØÕóÖÐ¶ÔÔªËØ±ê×¼»¯µ½Ä³¸öÖµÄÚ
-//cv::perspectiveTransform()	Ö´ÐÐÒ»ÏµÁÐÏòÁ¿µÄÍ¸ÊÓ¾ØÕó±ä»»
-//cv::phase()	¼ÆËã¶þÎ¬ÏòÁ¿µÄ·½Ïò
-//cv::polarToCart()	ÒÑÖª½Ç¶ÈºÍ·ù¶È£¬Çó¶þÎ¬ÏòÁ¿
-//cv::pow()	¶Ô¾ØÕóÄÚ¶ÔÃ¿¸öÔªËØÖ´ÐÐÃÝÔËËã
-//cv::randu()	Ê¹ÓÃ¾ùÔÈ·Ö²¼µÄËæ»úÊýÌî³ä¾ØÕó
-//cv::randn()	Ê¹ÓÃÕýÌ¬·Ö²¼µÄËæ»úÊýÌî³ä¾ØÕó
-//cv::randShuffle()	Ëæ»ú´òÂÒ¾ØÕóÔªËØ
-//cv::reduce()	Í¨¹ýÌØ¶¨µÄ²Ù×÷½«¶þÎ¬¾ØÕóÍË»¯ÎªÏòÁ¿
-//cv::repeat()	½«Ò»¸ö¾ØÕóµÄÄÚÈÝ¸´ÖÆµ½ÁíÍâÒ»¸ö¾ØÕó
-//cv::saturate_cast<>()	±¥ºÍ×ª»»Ô­Ê¼ÀàÐÍ
-//cv::scaleAdd()	ÖðÔªËØµÄÖ´ÐÐ¾ØÕó¼Ó·¨£¬µÚÒ»¸ö¾ØÕó¿ÉÒÔÑ¡ÔñÏÈÖ´ÐÐËõ·Å²Ù×÷
-//cv::setIdentity()	½«¶Ô½ÇÏßÉÏµÄÔªËØÉèÖÃÎª1£¬ÆäÓàÔªËØÉèÖÃÎª0
-//cv::solve()	Çó³öÏßÐÔ·½³Ì×éµÄ½â
-//cv::solveCubic()	¼ÆËãÈý´Î·½³ÌµÄÊµ¸ù
-//cv::solvePoly()	ÕÒµ½¶àÏîÊ½·½³ÌµÄ¸´¸ù
-//cv::sort()	ÅÅÐò¾ØÕóÖÐµÄÈÎÒâÐÐ»òÕßÁÐµÄËùÓÐÔªËØ
-//cv::sortIdx()	ºÍº¯Êýcv::sort()ÀàËÆ£¬µ«ÊÇÕâÀï²¢²»»áÐÞ¸Ä¾ØÕó±¾Éí£¬½ö·µ»ØÅÅÐò½á¹ûµÄË÷ÒýÖµ
-//cv::split()	½«¶àÍ¨µÀ¾ØÕó·Ö½âÎª¶à¸öµ¥Í¨µÀ¾ØÕó
-//cv::sqrt()	ÖðÔªËØ¼ÆËã¾ØÕóµÄÆ½·½¸ù
-//cv::subtract()	ÖðÔªËØ¶ÔÁ½¸ö¾ØÕóÖ´ÐÐ¼õ·¨ÔËËã
-//cv::sum()	¼ÆËãÊý×éËùÓÐÔªËØµÄºÍ
-//cv::theRNG()	·µ»ØÒ»¸öËæ»úÊýÉú³ÉÆ÷
-//cv::trace()	¼ÆËãÒ»¸ö¾ØÕóµÄ¼£
-//cv::transform()	¶Ô¾ØÕóµÄÃ¿¸öÔªËØÓ¦ÓÃ¾ØÕó±ä»»
-//cv::transpose()	¼ÆËã¾ØÕóµÄ×ªÖÃ¾ØÕó
+//cv::abs()	çŸ©é˜µå†…æ‰€æœ‰å…ƒç´ å–ç»å¯¹å€¼å¹¶è¿”å›žç»“æžœ
+//cv::absdiff()	è®¡ç®—ä¸¤ä¸ªçŸ©é˜µå·®å€¼çš„ç»å¯¹å€¼å¹¶è¿”å›žç»“æžœ
+//cv::add()	ä¸¤ä¸ªçŸ©é˜µé€å…ƒç´ ç›¸åŠ 
+//cv::addWeighted()	ä¸¤ä¸ªçŸ©é˜µé€å…ƒç´ åŠ æƒæ±‚å’Œï¼Œå¯ä»¥ç†è§£ä¸ºAlphaæ··åˆ
+//cv::bitwise_and()	ä¸¤ä¸ªçŸ©é˜µé€å…ƒç´ æŒ‰ä½ä¸Žè¿ç®—
+//cv::bitwise_not()	ä¸¤ä¸ªçŸ©é˜µé€å…ƒç´ æŒ‰ä½éžè¿ç®—
+//cv::bitwise_or()	ä¸¤ä¸ªçŸ©é˜µé€å…ƒç´ æŒ‰ä½æˆ–è¿ç®—
+//cv::bitwise_xor()	ä¸¤ä¸ªçŸ©é˜µé€å…ƒç´ æŒ‰ä½å¼‚æˆ–è¿ç®—
+//cv::calcCovarMatrix()	è®¡ç®—ä¸€ç»„nç»´å‘é‡çš„åæ–¹å·®
+//cv::cartToPolar()	è®¡ç®—äºŒç»´å‘é‡çš„è§’åº¦å’Œå¹…åº¦
+//cv::checkRange()	æ£€æŸ¥çŸ©é˜µçš„æ— æ•ˆå€¼
+//cv::compare()	å¯¹ä¸¤ä¸ªçŸ©é˜µä¸­çš„æ‰€æœ‰å…ƒç´ åº”ç”¨ä¸€ä¸ªæŒ‡å®šçš„æ¯”è¾ƒè¿ç®—ç¬¦
+//cv::completeSymm()	é€šè¿‡å°†ä¸€åŠå…ƒç´ å¤åˆ¶åˆ°å¦ä¸€åŠä½¿å¾—çŸ©é˜µå¯¹ç§°
+//cv::convertScaleAbs()	ç¼©æ”¾çŸ©é˜µï¼Œå–ç»å¯¹å€¼ï¼Œç„¶åŽå°†å…¶ä¸­æ•°æ®æ ¼å¼è½¬åŒ–ä¸º8ä½æ— ç¬¦å·åž‹
+//cv::countNonZero()	è®¡ç®—çŸ©é˜µä¸­çš„éžé›¶å…ƒç´ 
+//cv::arrToMat()	å°†2.1ç‰ˆæœ¬ä¹‹å‰çš„æ•°ç»„è½¬åŒ–ä¸ºcv::Matçš„å®žä¾‹
+//cv::dct()	è®¡ç®—çŸ©é˜µçš„ç¦»æ•£ä½™å¼¦å˜æ¢
+//cv::determinant()	è®¡ç®—æ–¹é˜µçš„è¡Œåˆ—å¼
+//cv::dft()	è®¡ç®—çŸ©é˜µçš„ç¦»æ•£å‚…ç«‹å¶å˜æ¢
+//cv::divide()	å¯¹ä¸¤ä¸ªçŸ©é˜µæ‰§è¡Œé€å…ƒç´ é™¤æ³•è¿ç®—
+//cv::eigen()	è®¡ç®—æ–¹é’ˆçš„ç‰¹å¾å€¼å’Œç‰¹å¾å‘é‡
+//cv::exp()	å¯¹çŸ©é˜µæ‰§è¡Œé€å…ƒç´ æ±‚æŒ‡æ•°å¹‚è¿ç®—
+//cv::extractImageCOI()	ä»Ž2.1ä¹‹å‰ç‰ˆæœ¬çš„æ•°ç»„ä¸­æå–å•ä¸ªé€šé“
+//cv::flip()	ç»•æŒ‡å®šè½´ç¿»è½¬çŸ©é˜µ
+//cv::gemm()	æ‰§è¡Œå¹¿ä¹‰çš„çŸ©é˜µä¹˜æ³•
+//cv::getConvertElem()	èŽ·å–å•ä¸ªåƒç´ çš„ç±»åž‹è½¬æ¢å‡½æ•°
+//cv::getConvertScaleElem()	èŽ·å–å•ä¸ªåƒç´ çš„ç±»åž‹è½¬æ¢å’Œç¼©æ”¾å‡½æ•°
+//cv::idct()	è®¡ç®—çŸ©é˜µçš„ç¦»æ•£ä½™å¼¦é€†å˜æ¢
+//cv::idft()	è®¡ç®—çŸ©é˜µçš„ç¦»æ•£å‚…ç«‹å¶é€†å˜æ¢
+//cv::inRange()	æµ‹è¯•çŸ©é˜µçš„å…ƒç´ æ˜¯å¦åŒ…å«åœ¨å…¶ä»–ä¸¤ä¸ªçŸ©é˜µçš„å€¼ä¹‹é—´
+//cv::invert()	æ±‚æ–¹é˜µçš„é€†
+//cv::log()	é€å…ƒç´ è®¡ç®—è‡ªç„¶å¯¹æ•°
+//cv::magnitude()	è®¡ç®—äºŒç»´å‘é‡çš„å¹…åº¦
+//cv::LUT()	å°†çŸ©é˜µè½¬æ¢ä¸ºæŸ¥æ‰¾è¡¨çš„ç´¢å¼•
+//cv::Mahalanobis()	è®¡ç®—ä¸¤ä¸ªå‘é‡ä¹‹é—´çš„é©¬æ°è·ç¦»
+//cv::max()	é€å…ƒç´ æ±‚ä¸¤ä¸ªçŸ©é˜µä¹‹é—´çš„æœ€å¤§å€¼
+//cv::mean()	è®¡ç®—çŸ©é˜µå…ƒç´ çš„å¹³å‡å€¼
+//cv::meanStdDev()	è®¡ç®—æ•°ç»„å…ƒç´ çš„å‡å€¼å’Œæ ‡å‡†å·®
+//cv::merge()	å°†å¤šä¸ªå•é€šé“çŸ©é˜µåˆå¹¶ä¸ºä¸€ä¸ªå¤šé€šé“çŸ©é˜µ
+//cv::min()	é€å…ƒç´ æ±‚ä¸¤ä¸ªçŸ©é˜µä¹‹é—´çš„æœ€å°å€¼
+//cv::minMaxLoc()	åœ¨çŸ©é˜µä¸­å¯»æ‰¾æœ€å¤§å’Œæœ€å°å€¼
+//cv::mixChannels()	æ‰“ä¹±ä»Žè¾“å…¥çŸ©é˜µåˆ°è¾“å‡ºçŸ©é˜µçš„é€šé“
+//cv::mulSpectrums()	å¯¹ä¸¤ä¸ªå‚…ç«‹å¶è°±çŸ©é˜µæ‰§è¡Œé€å…ƒç´ ä¹˜æ³•è¿ç®—
+//cv::multiply()	å¯¹ä¸¤ä¸ªçŸ©é˜µæ‰§è¡Œé€å…ƒç´ ä¹˜æ³•è¿ç®—
+//cv::mulTransposed()	è®¡ç®—çŸ©é˜µå’Œå…¶è½¬ç½®å¯¹é€å…ƒç´ ä¹˜ç§¯
+//cv::norm()	åœ¨ä¸¤ä¸ªçŸ©é˜µä¹‹é—´è®¡ç®—å½’ä¸€åŒ–ç›¸å…³ç³»æ•°
+//cv::normalize()	å°†çŸ©é˜µä¸­å¯¹å…ƒç´ æ ‡å‡†åŒ–åˆ°æŸä¸ªå€¼å†…
+//cv::perspectiveTransform()	æ‰§è¡Œä¸€ç³»åˆ—å‘é‡çš„é€è§†çŸ©é˜µå˜æ¢
+//cv::phase()	è®¡ç®—äºŒç»´å‘é‡çš„æ–¹å‘
+//cv::polarToCart()	å·²çŸ¥è§’åº¦å’Œå¹…åº¦ï¼Œæ±‚äºŒç»´å‘é‡
+//cv::pow()	å¯¹çŸ©é˜µå†…å¯¹æ¯ä¸ªå…ƒç´ æ‰§è¡Œå¹‚è¿ç®—
+//cv::randu()	ä½¿ç”¨å‡åŒ€åˆ†å¸ƒçš„éšæœºæ•°å¡«å……çŸ©é˜µ
+//cv::randn()	ä½¿ç”¨æ­£æ€åˆ†å¸ƒçš„éšæœºæ•°å¡«å……çŸ©é˜µ
+//cv::randShuffle()	éšæœºæ‰“ä¹±çŸ©é˜µå…ƒç´ 
+//cv::reduce()	é€šè¿‡ç‰¹å®šçš„æ“ä½œå°†äºŒç»´çŸ©é˜µé€€åŒ–ä¸ºå‘é‡
+//cv::repeat()	å°†ä¸€ä¸ªçŸ©é˜µçš„å†…å®¹å¤åˆ¶åˆ°å¦å¤–ä¸€ä¸ªçŸ©é˜µ
+//cv::saturate_cast<>()	é¥±å’Œè½¬æ¢åŽŸå§‹ç±»åž‹
+//cv::scaleAdd()	é€å…ƒç´ çš„æ‰§è¡ŒçŸ©é˜µåŠ æ³•ï¼Œç¬¬ä¸€ä¸ªçŸ©é˜µå¯ä»¥é€‰æ‹©å…ˆæ‰§è¡Œç¼©æ”¾æ“ä½œ
+//cv::setIdentity()	å°†å¯¹è§’çº¿ä¸Šçš„å…ƒç´ è®¾ç½®ä¸º1ï¼Œå…¶ä½™å…ƒç´ è®¾ç½®ä¸º0
+//cv::solve()	æ±‚å‡ºçº¿æ€§æ–¹ç¨‹ç»„çš„è§£
+//cv::solveCubic()	è®¡ç®—ä¸‰æ¬¡æ–¹ç¨‹çš„å®žæ ¹
+//cv::solvePoly()	æ‰¾åˆ°å¤šé¡¹å¼æ–¹ç¨‹çš„å¤æ ¹
+//cv::sort()	æŽ’åºçŸ©é˜µä¸­çš„ä»»æ„è¡Œæˆ–è€…åˆ—çš„æ‰€æœ‰å…ƒç´ 
+//cv::sortIdx()	å’Œå‡½æ•°cv::sort()ç±»ä¼¼ï¼Œä½†æ˜¯è¿™é‡Œå¹¶ä¸ä¼šä¿®æ”¹çŸ©é˜µæœ¬èº«ï¼Œä»…è¿”å›žæŽ’åºç»“æžœçš„ç´¢å¼•å€¼
+//cv::split()	å°†å¤šé€šé“çŸ©é˜µåˆ†è§£ä¸ºå¤šä¸ªå•é€šé“çŸ©é˜µ
+//cv::sqrt()	é€å…ƒç´ è®¡ç®—çŸ©é˜µçš„å¹³æ–¹æ ¹
+//cv::subtract()	é€å…ƒç´ å¯¹ä¸¤ä¸ªçŸ©é˜µæ‰§è¡Œå‡æ³•è¿ç®—
+//cv::sum()	è®¡ç®—æ•°ç»„æ‰€æœ‰å…ƒç´ çš„å’Œ
+//cv::theRNG()	è¿”å›žä¸€ä¸ªéšæœºæ•°ç”Ÿæˆå™¨
+//cv::trace()	è®¡ç®—ä¸€ä¸ªçŸ©é˜µçš„è¿¹
+//cv::transform()	å¯¹çŸ©é˜µçš„æ¯ä¸ªå…ƒç´ åº”ç”¨çŸ©é˜µå˜æ¢
+//cv::transpose()	è®¡ç®—çŸ©é˜µçš„è½¬ç½®çŸ©é˜µ
