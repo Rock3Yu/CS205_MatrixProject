@@ -1,2 +1,2 @@
 # CS205_MatrixProject
-null
+This is the final project of CS205 C/C++ course.
