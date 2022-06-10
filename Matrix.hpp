@@ -36,6 +36,10 @@ public:
             cout << endl;
         }
     }
+    
+    //note: Put Lin Peijun's codes here:
+    
+    
 
     Matrix add(const Matrix &m1, const Matrix &m2);
 
@@ -45,8 +49,18 @@ public:
 
     Matrix divide(const double sc);
 
-
     Matrix operator+(const Matrix&m);
+    
+    // note: Put YU Kunyi's codes here:
+    
+    
+    
+    
+    // note: Put Lei Qirong's codes here:
+    
+    
+    
+    
 
 };
 
