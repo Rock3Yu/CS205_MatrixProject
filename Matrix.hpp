@@ -14,25 +14,39 @@ private:
     int rows, cols;
 
 public:
+    // Constructors
     Matrix() : rows(0), cols(0) { matrix.resize(0, 0); }
 
-    Matrix(const int r, const int c) {
+    Matrix(int r, int c) {
         rows = r;
         cols = c;
-        matrix = new T *[rows];
-        for (int i = 0; i < rows; ++i) {
-            matrix[i] = new T[cols];
-            for (int j = 0; j < cols; ++j) {
-                matrix[i][j] = 0;
-            }
-        }
+        matrix.resize(r);
+        for (int i = 0; i < r; ++i) matrix[i].resize(c);
+    }
+    
+        // vector '=' assignment is deep-copy!
+    /*
+     * vector<vector<double>> vec1 = {{1, 2, 3}, {4, 5, 6}};
+     * vector<vector<double>> vec2 = vec1;
+     * vec1[0][0] = 100;
+     * cout << vec2[0][0]; // output: 1
+     */
+    Matrix(vector<vector<T>> matrix) {
+        this->matrix = matrix;
+        rows = matrix.size();
+        cols = matrix[0].size();
+    }
+
+    // copy constructor
+    Matrix(const Matrix<T> &m1) {
+        matrix = m1.matrix;
+        rows = m1.rows;
+        cols = m1.cols;
     }
 
     void Display() {
         for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                cout << matrix[i][j] << " ";
-            }
+            for (int j = 0; j < cols; ++j) cout << matrix[i][j] << " ";
             cout << endl;
         }
     }
