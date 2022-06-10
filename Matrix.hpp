@@ -7,7 +7,7 @@
 using namespace std;
 //using namespace cv;
 
-template<typename T>
+template<class T>
 class Matrix {
 private:
     vector<vector<T>> matrix;
@@ -53,6 +53,13 @@ public:
     
     // note: Put YU Kunyi's codes here:
     
+    T max(Matrix<T> m) {
+        T out = m[0][0];
+        for (int i = 0; i < rows; ++i)
+            for (int j = 0; j < cols; ++j)
+                if (out < m[i][j]) out = m[i][j];
+        return out;
+    }
     
     
     
