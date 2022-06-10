@@ -80,11 +80,16 @@ public:
     
     // note: Put YU Kunyi's codes here:
     
-    T max(Matrix<T> m) {
-        T out = m[0][0];
-        for (int i = 0; i < rows; ++i)
-            for (int j = 0; j < cols; ++j)
-                if (out < m[i][j]) out = m[i][j];
+    // Element-wise minimum and maximum: min(A, B), min(A, alpha), max(A, B), max(A, alpha)
+    // cv::max()	逐元素求两个矩阵之间的最大值
+    T max(const Matrix<T> &m1, const Matrix<T> &m2) {
+        T out = m1[0][0];
+        for (int i = 0; i < m1.rows; ++i)
+            for (int j = 0; j < m1.cols; ++j)
+                if (out < m1[i][j]) out = m1[i][j];
+        for (int i = 0; i < m2.rows; ++i)
+            for (int j = 0; j < m2.cols; ++j)
+                if (out < m2[i][j]) out = m2[i][j];
         return out;
     }
     
