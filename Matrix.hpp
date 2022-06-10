@@ -31,7 +31,7 @@ public:
      * vec1[0][0] = 100;
      * cout << vec2[0][0]; // output: 1
      */
-    Matrix(vector<vector<T>> matrix) {
+    explicit Matrix(vector<vector<T>> matrix) {
         this->matrix = matrix;
         rows = matrix.size();
         cols = matrix[0].size();
@@ -44,7 +44,7 @@ public:
         cols = m1.cols;
     }
     
-    void operator=(const Matrix<T> &m) {
+    Matrix &operator=(const Matrix<T> &m) {
         this->matrix = m.matrix;
         this->rows = m.rows;
         this->cols = m.cols;
