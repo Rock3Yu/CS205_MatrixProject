@@ -43,12 +43,25 @@ public:
         rows = m1.rows;
         cols = m1.cols;
     }
+    
+    void operator=(const Matrix<T> &m) {
+        this->matrix = m.matrix;
+        this->rows = m.rows;
+        this->cols = m.cols;
+    }
+    
+    virtual ~Matrix() = default;
 
-    void Display() {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) cout << matrix[i][j] << " ";
-            cout << endl;
+    friend ostream &operator<<(ostream &os, const Matrix &m) {
+        os << "[";
+        for (int i = 0; i < m.rows; ++i) {
+            if (i != 0) os << " ";
+            os << "[" << m.matrix[i][0];
+            for (int j = 1; j < m.cols; ++j) os << " " << m.matrix[i][j];
+            if (i != m.rows - 1)os << "]\n";
+            else os << "]]";
         }
+        return os;
     }
     
     //note: Put Lin Peijun's codes here:
