@@ -455,10 +455,50 @@ Matrix<T>   dotPro(const Matrix<T> &m){
     T mean(int num, bool axis = 0) {
         return axis ? sum(num, axis) / rows : sum(num, axis) / cols;
     }
+	
+    /**
+     * @brief trace of the Matrix
+     * */
+    T trace() {
+        T trace = 0;
+        if (cols != rows) cerr << "matrix with col != row have no trace!" << endl;
+        else for (int i = 0; i < rows; ++i) trace += matrix[i][i];
+        return trace;
+    }
+
+    /**
+     * @brief det(A) or |A|
+     * */
+    T determinant() {
+        if (rows != cols) {
+            cerr << "matrix with col != row have no determinant!" << endl;
+            return 0;
+        }
+        return detUtility(matrix, rows);
+    }
+
+    /**
+     * @brief the actual func calculate the det(A)
+     * */
+    T detUtility(vector<vector<T>> v, int n) {
+        if (rows == 1) { return v[0][0]; }
+        T sum = 0;
+        for (int i = 0; i < n; ++i) {
+            vector<vector<T>> s;
+            for (int j = 0; j < n - 1; ++j) {
+                vector<T> temp;
+                for (int k = 0; k < n; ++k) if (j != k) temp.push_back(v[j][k]);
+                s.push_back(temp);
+            }
+            sum += pow(-1, 0 + i) * v[0][i] * detUtility(s, n - 1);
+        }
+        return sum;
+    }
     
     
     
     // note: Put Lei Qirong's codes here:
+	
     /**
      * @brief reshape the matrix to a new form by certain row and column number
      *
