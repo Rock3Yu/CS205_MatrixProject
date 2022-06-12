@@ -154,7 +154,7 @@ public:
      * @param num the max you want to find in col(num) or row(num)
      * @param axis =0 means row, =1 means col
      * */
-    T max(int num, bool axis) {
+    T max(int num, bool axis = 0) {
         T max;
         if (!axis) {
             if (num >= rows) cerr << "error in function: T max(int num, bool axis);" << endl;
@@ -174,7 +174,7 @@ public:
     * @param num the min you want to find in col(num) or row(num)
     * @param axis =0 means row, =1 means col
     * */
-    T min(int num, bool axis) {
+    T min(int num, bool axis = 0) {
         T min;
         if (!axis) {
             if (num >= rows) cerr << "error in function: T min(int num, bool axis);" << endl;
@@ -208,7 +208,7 @@ public:
      * @param axis =0 means row, =1 means col
      * @return sum of col(num) or row(num)
      * */
-    T sum(int num, bool axis) {
+    T sum(int num, bool axis = 0) {
         T sum;
         if (!axis) {
             if (num >= rows) cerr << "error in function: T sum(int num, bool axis);" << endl;
@@ -222,6 +222,22 @@ public:
             for (int i = 1; i < rows; ++i) sum += matrix[i][num];
         }
         return sum;
+    }
+    
+     /**
+     * @brief average of all elements
+     * */
+    T mean() {
+        return sum() / (rows * cols);
+    }
+
+    /**
+     * @brief average in axis
+     * @param num number of col/row
+     * @param axis =0 means row, =1 means col
+     * */
+    T mean(int num, bool axis = 0) {
+        return axis ? sum(num, axis) / rows : sum(num, axis) / cols;
     }
     
     
