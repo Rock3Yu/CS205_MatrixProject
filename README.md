@@ -12,12 +12,12 @@ This is the final project of CS205 C/C++ course.
 
 （3）所有人的任务：
 
-    * 各自部分的测试样例（写到main.cpp里面）
+   * 各自部分的测试样例（写到main.cpp里面）
     
-    * 前端网页（bonus）
+   * 前端网页（bonus）
     
-    * 稀疏矩阵的完善
+   * 稀疏矩阵的完善
     
-    * 互相debug找错
+   * 互相debug找错
     
-    * 准备周末答辩
+   * 准备周末答辩
