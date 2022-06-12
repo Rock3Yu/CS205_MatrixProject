@@ -66,25 +66,31 @@ public:
     
     
     //note: Put Lin Peijun's codes here:
-    
-    Matrix<T>	operator+(const Matrix<T> &m) const ;	
+
+	
+	Matrix<T>	operator+(const Matrix<T> &m) const ;		
 	Matrix<T>	operator-(const Matrix<T> &m) const ;		
 	Matrix<T>	operator*(const Matrix<T> &m) const ;	
 	void		operator+=(const Matrix<T> &m) ;			
 	void		operator-=(const Matrix<T> &m) ;			
-	void		operator*=(const Matrix<T> &m) ;			
-	void		operator*=(double value) ;					
-	Matrix<T>	    operator*(const double scalar) ;
-    Matrix<T>	    operator/(const double scalar) ;
+	void		operator*=(const Matrix<T> &m) ;
+    	template <typename T>			
+	void		operator*=(T scalar) ;
+    	template <typename T>
+    	void		operator/=(T scalar) ;
+    	template <typename T>					
+	Matrix<T>	operator*(T scalar) ;
+    	template <typename T>
+	Matrix<T>	operator/(T scalar) ;
 	bool		operator==(const Matrix<T> &m) const ;
     
     Matrix<T>   trans() const ;
     Matrix<T>   cong() const ;
-    Matrix<T>      eleWiseMul(const Matrix<T> &m) ;
-    Matrix<T>      crossPro(const Matrix<T> &m);
-    Matrix<T>      dotPro(const Matrix<T> &m);
-    
-     //addition
+    Matrix<T>   eleWiseMul(const Matrix<T> &m) ;
+    Matrix<T>   crossPro(const Matrix<T> &m);
+    Matrix<T>   dotPro(const Matrix<T> &m);
+	
+	  //addition
 Matrix<T>	Matrix::operator+(const Matrix<T> &m){
     try{
         if(m.colunm == cols && m.row == rows){
@@ -119,25 +125,25 @@ Matrix<T>	operator-(const Matrix<T> &m){
 // matrix-matrix multiplication & matrix-vector multiplication
 Matrix<T>	operator*(const Matrix<T> &m){
     try{
-         if(m.colunm == rows && m.row == cols){
-        Matrix M(rows,cols);
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
+        if(m.colunm == rows){
+            Matrix M(rows,cols);
+            for(int i=0; i<rows; i++){
+                for(int j=0; j<cols; j++){
                 M[i,j] += (matrix[i,j] + m[j,i]);
+                }
             }
+            return M;
+        }else{
+            throw "The sizes do not match when using \'*\'";
         }
-        return M;
-    }else{
-        throw "The sizes do not match when using \'*\'";
-            }
-
     } catch(char *exceptionString) {
         cerr << exceptionString << endl;
     }
-   }
+}
 
 //scalar multiplication
-Matrix<T>	operator*(const double scalar){
+template <class T>
+Matrix<T>	operator*(T scalar){
     Matrix<T> M(rows,cols);
      for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
@@ -148,7 +154,8 @@ Matrix<T>	operator*(const double scalar){
 }
 
 //scalar division
-Matrix<T>	operator/(const double scalar){
+template <class T>
+Matrix<T>	operator/(T scalar){
     try{
          Matrix<T> M(rows,cols);
         if scalar == 0{
@@ -177,8 +184,14 @@ void	operator*=(const Matrix<T> &m){
     *this = *this * m;
 }			
 
-void	operator/=(double value) {
-    *this = *this / m;
+template <typename T>
+void	operator/=(T scalar) {
+    *this = *this / scalar;
+}	
+
+template <typename T>
+void	operator*=(T scalar) {
+    *this = *this * scalar;
 }	
 
 bool	operator==(const Matrix<T> &m){
@@ -215,7 +228,7 @@ Matrix<T>   trans(){
 
 //conjugation
 Matrix<T>   cong() {
-	 Matrix<T> M(row, column);
+     Matrix<T> M(row, column);
         for (int i=0; i<row; i++){
             for (int j=0; j<column; j++){
                 M[i][j] = conj(matrix[i][j]);
@@ -278,8 +291,9 @@ Matrix<T>   dotPro(const Matrix<T> &m){
         cerr << exceptionString << endl;
     }
 }
-
-    
+	
+	
+	
     // note: Put YU Kunyi's codes here:
     
     // Element-wise minimum and maximum: min(A, B), min(A, alpha), max(A, B), max(A, alpha)
