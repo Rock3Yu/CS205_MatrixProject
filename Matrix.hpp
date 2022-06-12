@@ -85,7 +85,7 @@ public:
 	bool		operator==(const Matrix<T> &m) const ;
     
     Matrix<T>   trans() const ;
-    Matrix<T>   cong() const ;
+    Matrix<T>   conj() const ;
     Matrix<T>   eleWiseMul(const Matrix<T> &m) ;
     Matrix<T>   crossPro(const Matrix<T> &m);
     Matrix<T>   dotPro(const Matrix<T> &m);
@@ -227,7 +227,7 @@ Matrix<T>   trans(){
 }
 
 //conjugation
-Matrix<T>   cong() {
+Matrix<T>   conj() {
      Matrix<T> M(row, column);
         for (int i=0; i<row; i++){
             for (int j=0; j<column; j++){
