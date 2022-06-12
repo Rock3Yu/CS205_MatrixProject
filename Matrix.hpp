@@ -7,6 +7,35 @@
 using namespace std;
 //using namespace cv;
 
+template<typename T>
+struct element {
+    int row, col;
+    T value;
+
+    element(int row, int col, T value) : row(row), col(col), value(value) {}
+
+    bool operator<(const element &rhs) const {
+        if (row < rhs.row)
+            return true;
+        if (rhs.row < row)
+            return false;
+        return col < rhs.col;
+    }
+};
+
+template<class T>
+class Matrix;
+
+template<class T>
+class SpareMatrix {
+    int rows, cols;
+    int items, maxItems;
+    vector<element<T>> spareMatrix;
+    
+    
+    
+};
+
 template<class T>
 class Matrix {
 private:
