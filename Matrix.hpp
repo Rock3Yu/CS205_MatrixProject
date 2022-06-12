@@ -82,15 +82,112 @@ public:
     
     // Element-wise minimum and maximum: min(A, B), min(A, alpha), max(A, B), max(A, alpha)
     // cv::max()	逐元素求两个矩阵之间的最大值
-    T max(const Matrix<T> &m1, const Matrix<T> &m2) {
-        T out = m1[0][0];
+    // 这4个应该可以忽略
+    static Matrix<T> max(const Matrix<T> &m1, const Matrix<T> &m2) {
+        try {
+            if (m1.rows != m2.rows || m1.cols != m2.cols) throw 1;
+            Matrix<T> out(m1.rows, m1.cols);
+            for (int i = 0; i < m1.rows; ++i)
+                for (int j = 0; j < m1.co; ++j)
+                    out.matrix[i][j] = max(m1.matrix[i][j], m2.matrix[i][j]);
+            return out;
+        } catch (int num) {
+            cerr << "error in max()" << endl;
+        }
+    }
+
+    static Matrix<T> max(const Matrix<T> &m1, int alpha) {
+        Matrix<T> out(m1.rows, m1.cols);
         for (int i = 0; i < m1.rows; ++i)
-            for (int j = 0; j < m1.cols; ++j)
-                if (out < m1[i][j]) out = m1[i][j];
-        for (int i = 0; i < m2.rows; ++i)
-            for (int j = 0; j < m2.cols; ++j)
-                if (out < m2[i][j]) out = m2[i][j];
+            for (int j = 0; j < m1.co; ++j)
+                out.matrix[i][j] = max(m1.matrix[i][j], alpha);
         return out;
+    }
+
+    static Matrix<T> min(const Matrix<T> &m1, const Matrix<T> &m2) {
+        try {
+            if (m1.rows != m2.rows || m1.cols != m2.cols) throw 1;
+            Matrix<T> out(m1.rows, m1.cols);
+            for (int i = 0; i < m1.rows; ++i)
+                for (int j = 0; j < m1.co; ++j)
+                    out.matrix[i][j] = min(m1.matrix[i][j], m2.matrix[i][j]);
+            return out;
+        } catch (int num) {
+            cerr << "error in max()" << endl;
+        }
+    }
+
+    static Matrix<T> min(const Matrix<T> &m1, int alpha) {
+        Matrix<T> out(m1.rows, m1.cols);
+        for (int i = 0; i < m1.rows; ++i)
+            for (int j = 0; j < m1.co; ++j)
+                out.matrix[i][j] = min(m1.matrix[i][j], alpha);
+        return out;
+    }
+
+    // 按照文档中函数要求理解的：
+    /**
+     * @brief the maximum in all matrix
+     * @return max in type T
+     * */
+    T max() {
+        T max = matrix[0][0];
+        for (int i = 0; i < rows; ++i)
+            for (int j = 0; j < cols; ++j)
+                if (max<matrix[i][j]) max = matrix[i][j];
+        return max;
+    }
+
+    /**
+    * @brief the minimum in all matrix
+    * @return min in type T
+    * */
+    T min() {
+        T min = matrix[0][0];
+        for (int i = 0; i < rows; ++i)
+            for (int j = 0; j < cols; ++j)
+                if (min > matrix[i][j]) min = matrix[i][j];
+        return min;
+    }
+
+    /**
+     * @param num the max you want to find in col(num) or row(num)
+     * @param axis =0 means row, =1 means col
+     * */
+    T max(int num, bool axis) {
+        T max;
+        if (!axis) {
+            if (num >= rows) cerr << "error in function: T max(int num, bool axis);" << endl;
+            // note: max in row(num)
+            max = matrix[num][0];
+            for (int i = 0; i < cols; ++i) if (max < matrix[num][i]) max = matrix[num][i];
+        } else {
+            if (num >= cols) cerr << "error in function: T max(int num, bool axis);" << endl;
+            // note: max in col(num)
+            max = matrix[0][num];
+            for (int i = 0; i < rows; ++i) if (max < matrix[i][num]) max = matrix[i][num];
+        }
+        return max;
+    }
+
+    /**
+    * @param num the min you want to find in col(num) or row(num)
+    * @param axis =0 means row, =1 means col
+    * */
+    T min(int num, bool axis) {
+        T min;
+        if (!axis) {
+            if (num >= rows) cerr << "error in function: T min(int num, bool axis);" << endl;
+            // note: max in row(num)
+            min = matrix[num][0];
+            for (int i = 0; i < cols; ++i) if (min > matrix[num][i]) min = matrix[num][i];
+        } else {
+            if (num >= cols) cerr << "error in function: T min(int num, bool axis);" << endl;
+            // note: max in col(num)
+            min = matrix[0][num];
+            for (int i = 0; i < rows; ++i) if (min > matrix[i][num]) min = matrix[i][num];
+        }
+        return min;
     }
     
     
