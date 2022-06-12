@@ -190,6 +190,40 @@ public:
         return min;
     }
     
+        /**
+     * @brief sum of all matrix
+     * @return sum
+     * */
+    T sum() {
+        T sum = matrix[0][0] - matrix[0][0];
+        for (int i = 0; i < rows; ++i)
+            for (int j = 0; j < cols; ++j)
+                sum += matrix[i][j];
+        return sum;
+    }
+    
+    /**
+     * @brief sum in axis
+     * @param num number of col/row
+     * @param axis =0 means row, =1 means col
+     * @return sum of col(num) or row(num)
+     * */
+    T sum(int num, bool axis) {
+        T sum;
+        if (!axis) {
+            if (num >= rows) cerr << "error in function: T sum(int num, bool axis);" << endl;
+            // note: sum in row(num)
+            sum = matrix[num][0];
+            for (int i = 1; i < cols; ++i) sum += matrix[num][i];
+        } else {
+            if (num >= cols) cerr << "error in function: T sum(int num, bool axis);" << endl;
+            // note: sum in col(num)
+            sum = matrix[0][num];
+            for (int i = 1; i < rows; ++i) sum += matrix[i][num];
+        }
+        return sum;
+    }
+    
     
     
     // note: Put Lei Qirong's codes here:
