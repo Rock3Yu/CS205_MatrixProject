@@ -459,7 +459,111 @@ Matrix<T>   dotPro(const Matrix<T> &m){
     
     
     // note: Put Lei Qirong's codes here:
-    
+    /**
+     * @brief reshape the matrix to a new form by certain row and column number
+     *
+     * @param row the number of rows of new matrix
+     * @param column the number of cols of new matrix
+     * @return the matrix after reshape. If invalid, return the original matrix.
+     *
+     */
+    Matrix reshape(int row, int column)
+    {
+        if (this->rows * this->cols != row * column)
+        {
+            cout << "The parameter is not valid!";
+            return this->matrix;
+        }
+        Matrix output(row, column);
+        int row_count = 0, col_count = 0;
+        for (int i = 0; i < this->rows; i++)
+        {
+            for (int j = 0; j < this->cols j++)
+            {
+                if (col_count == column)
+                {
+                    col_count = 0;
+                    row_count++;
+                }
+                output[i][j] = this->matrix[row_count][col_count];
+                col_count++;
+            }
+        }
+        return output;
+    }
+
+    /**
+     * @brief reshape the matrix to certain row or column number automatically
+     *
+     * @param num the number of rows or column
+     * @param isRow Whether @param num represents the number of row. If not, it represent the number of column.
+     * @return the matrix after reshape. If invalid, return the original matrix.
+     *
+     */
+    Matrix reshape(int num, bool isRow)
+    {
+        if (this->rows * this->cols % num != 0)
+        {
+            cout << "The parameter is not valid!";
+            return this->matrix;
+        }
+        else
+        {
+            int the_other_param = this->rows * this->cols % num;
+            if (isRow)
+            {
+                return reshape(num, the_other_param);
+            }
+            else
+                return reshape(the_other_param, num);
+        }
+    }
+
+    /**
+     * @brief reshape the matrix from 3-dimension to 2-dimension with certain row and column
+     *
+     * @param A the 3-dim array
+     * @param x @param y @param z the length, the width and the height of @param A
+     * @param row @param column the number of rows and column of the new matrix
+     * @return the matrix after reshape. If invalid, return a matrix with required size but filled with 0.
+     *
+     * example:
+     * Matrix m(a,b);
+     * m.reshape(A,x,y,z);
+     *
+     */
+    Matrix reshape(vector<vector<vector<T>>> A, int x, int y, int z)
+    {
+        if (x * y * z != this->rows * this->cols)
+        {
+            cout << "The parameter is not valid!";
+            return this;
+        }
+        int x_count = 0, y_count = 0, z_count = 0;
+        for (int i = 0; i < this->rows; i++)
+        {
+            for (int j = 0; j < this->cols; j++)
+            {
+                if (z_count == z)
+                {
+                    z_count = 0;
+                    y_count++;
+                }
+                if (y_count == y)
+                {
+                    y_count = 0;
+                    x_count++;
+                }
+                this->matrix[i][j] = A[x_count][y_count][z_count];
+                z_count++;
+            }
+        }
+        return this;
+    }
+
+    Matrix slice();
+
+    Matrix convolution(const Matrix &m2);
     
     
     
