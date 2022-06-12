@@ -215,7 +215,13 @@ Matrix<T>   trans(){
 
 //conjugation
 Matrix<T>   cong() {
-
+	 Matrix<T> M(row, column);
+        for (int i=0; i<row; i++){
+            for (int j=0; j<column; j++){
+                M[i][j] = conj(matrix[i][j]);
+            }
+        }
+        return M;
 }
 
 //element-wise multiplication
