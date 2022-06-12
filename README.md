@@ -19,5 +19,7 @@ This is the final project of CS205 C/C++ course.
    * 稀疏矩阵的完善
     
    * 互相debug找错
+
+   * 连接到OpenCV上
     
    * 准备周末答辩
