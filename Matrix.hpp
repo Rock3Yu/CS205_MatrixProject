@@ -510,7 +510,7 @@ Matrix<T>   dotPro(const Matrix<T> &m){
      * @brief the actual func calculate the det(A)
      * */
     T detUtility(vector<vector<T>> v, int n) {
-        if (rows == 1) { return v[0][0]; }
+        if (n == 1) { return v[0][0]; }
         T sum = 0;
         for (int i = 0; i < n; ++i) {
             vector<vector<T>> s;
@@ -522,6 +522,45 @@ Matrix<T>   dotPro(const Matrix<T> &m){
             sum += pow(-1, 0 + i) * v[0][i] * detUtility(s, n - 1);
         }
         return sum;
+    }
+	
+    /**
+     * @brief A^-1 or reverse of the Matrix
+     * @attention use the Adjoint matrix method
+     * */
+    Matrix<T> invert() {
+        if (rows != cols) {
+            cerr << "Matrix with row != col has no invert!" << endl;
+            return Matrix<T>(0, 0);
+        }
+        if (determinant() == 0) {
+            cerr << "Matrix with det = 0 has no invert!" << endl;
+            return Matrix<T>(0, 0);
+        }
+        vector<vector<T>> vec;
+        for (int i = 0; i < rows; ++i) {
+            vector<T> temp;
+            for (int j = 0; j < cols; ++j)
+                temp.push_back(adjointMatrix(i, j));
+            vec.push_back(temp);
+        }
+        Matrix<T> out(vec);
+        out *= 1 / determinant();
+        return out;
+    }
+
+    T adjointMatrix(int r, int c) {
+        vector<vector<T>> vec;
+        for (int i = 0; i < rows; ++i) {
+            if (i == r) continue;
+            vector<T> temp;
+            for (int j = 0; j < cols; ++j) {
+                if (j == c) continue;
+                temp.push_back(matrix[i][j]);
+            }
+            vec.push_back(temp);
+        }
+        return pow(-1, r + c) * detUtility(vec, rows - 1);
     }
     
     
