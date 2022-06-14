@@ -668,14 +668,104 @@ Matrix<T>   dotPro(const Matrix<T> &m){
         }
         return this;
     }
+	
+    /**
+     * @brief get the spice part of the giving matrix
+     *
+     * @param start_row , @param end_row represents the start and end row number.
+     * @param start_col , @param end_col represents the start and end cloumn number.
+     * @return the matrix after slicing
+     *
+     */
+    Matrix slice(int start_row, int end_row, int start_col, int end_col)
+    {
+        // Handle the exception  of invalid input.
+        if (start_row < 0 || start_col < 0 || start_row >= this->rows || start_col >= this->cols || end_row < 0 || end_col < 0 || end_row >= this->rows || end_col >= this->cols)
+        {
+            cerr << "Invalid input!" << endl;
+            return Matrix(0, 0);
+        }
+        // Handle the exception that input the opposite direction of start and end number
+        int x1, y1, x2, y2;
+        if (start_row > end_row)
+        {
+            x1 = end_row;
+            x2 = start_row;
+        }
+        else
+        {
+            x2 = end_row;
+            x1 = start_row;
+        }
+        if (start_col > end_col)
+        {
+            y1 = end_col;
+            y2 = start_col;
+        }
+        else
+        {
+            y2 = end_col;
+            y1 = start_col;
+        }
+        Matrix output(x2 - x1 + 1, y2 - y1 + 1);
+        for (int i = 0; i < output.rows; i++)
+        {
+            for (int j = 0; j < output.cols; j++)
+            {
+                output.matrix[i][j] = this->matrix[x1 + i][y1 + j];
+            }
+        }
+        return output;
+    }
 
-    Matrix slice();
-
-    Matrix convolution(const Matrix &m2);
-    
-    
-    
-
+    /**
+     * @brief the convolution calculation of two matrix
+     *
+     * @param m2 Another matrix to be convolutioned by this matrix
+     * @return the matrix after convolution: A conv B;
+     *
+     * example:
+     * Matrix m(a,b);
+     * Matrix n(c,d);
+     * m.reshape(n);
+     *
+     */
+    Matrix convolution(const Matrix &m2)
+    {
+        // turn 180˚ of the matrix be convolutioned
+        vector<vector<T>> temp = m2.matrix;
+        for (int i = 0; i < m2.rows; i++)
+        {
+            for (int j = 0; j < m2.cols; j++)
+            {
+                temp[i][j] = m2.matrix[m2.rows - i][m2.cols - j];
+            }
+        }
+        m2.matrix = temp;
+        // extend the size of the matrix
+        Matrix output(this->rows, this->cols);
+        for (int i = 0; i < output.rows; i++)
+        {
+            for (int j = 0; j < output.cols; j++)
+            {
+                int value = 0;
+                for (int ii = 0; ii < m2.rows; ii++)
+                {
+                    for (int jj = 0; jj < m2.cols; jj++)
+                    {
+                        int x = i + ii - m2.rows / 2;
+                        int y = j + jj - m2.cols / 2;
+                        if (x >= 0 && y >= 0 && x < this->rows && y < this->cols)
+                        {
+                            value += this->matrix[x][y] * m2.matrix[ii][jj];
+                        }
+                    }
+                }
+                output.matrix[i][j] = value;
+            }
+        }
+        return output;
+    }
 };
 
 //cv::abs()	矩阵内所有元素取绝对值并返回结果
