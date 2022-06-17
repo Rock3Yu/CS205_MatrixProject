@@ -6,6 +6,8 @@ This is the final project of CS205 C/C++ course.
 
 列出一下任务，请在你认领的任务（）里写上自己的名字：
 
+   ~~删除线的示例：任务完成后请使用~~
+
    * 特征向量、特征值函数（余坤屹）
 
    * class spareMatrix的完善（余坤屹）
