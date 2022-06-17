@@ -12,9 +12,9 @@ This is the final project of CS205 C/C++ course.
 
    * class spareMatrix的完善（余坤屹）
 
-   * main.cpp：所有函数的测试样例（）
+   * main.cpp：所有函数的测试样例（雷其融）
 
-   * expectation.cpp：抛出异常的测试样例（）
+   * expectation.cpp：抛出异常的测试样例（雷其融）
 
    * testCV.cpp：使用OpenCV调用我们的matrix库，转换几张图片（林沛君）
     
