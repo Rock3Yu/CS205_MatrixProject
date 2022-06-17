@@ -16,8 +16,8 @@ This is the final project of CS205 C/C++ course.
 
    * expectation.cpp：抛出异常的测试样例（）
 
-   * testCV.cpp：使用OpenCV调用我们的matrix库，转换几张图片（）
+   * testCV.cpp：使用OpenCV调用我们的matrix库，转换几张图片（林沛君）
     
-   * 前端网页or可以命令行交互的一个matrix.cpp（）
+   * 前端网页or可以命令行交互的一个matrix.cpp（林沛君）
     
    * 准备周末答辩（）
