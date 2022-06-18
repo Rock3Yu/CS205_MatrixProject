@@ -53,4 +53,30 @@ int main()
          << matrix2.crossPro(matrix3) << endl;
     cout << "dot product of matrix2 and matrix3:\n"
          << matrix2.dotPro(matrix3) << endl;
+    
+    cout << "\n Test 4: eigenvalue, eigenvector, trace, inverse, determinent\n";
+    vector<vector<double>> vector5 = {{1, 2, 2}, {2, 1, 2}, {2, 2, 1}};
+    Matrix matrix5(vector5);
+    cout << "The eigrnvalue of " << matrix5 << "is: " << matrix5.eigenValue() << endl;
+    cout << "The eigrnvalue of is:\n"
+         << matrix5.eigenVector() << endl;
+    cout << "The trace is: " << matrix5.trace() << endl;
+    cout << "The inverse is: " << matrix5.invert() << endl;
+    cout << "The determinent is: " << matrix5.determinant() << endl;
+
+    cout << "\nTest 5: reshape, slice, convolution";
+    cout << "Reshape matrix1:\n"
+         << matrix1 << "from " << matrix1.getRows() << "×" << matrix1.getCols() << " to 2×8:\n"
+         << matrix1.reshape(2, 8) << endl;
+    cout << "Reshape a 3-dim matrix full of 1 with 2×2×2 to 2-dim 4×2:\n";
+    vector<vector<vector<int>>> three_dim = {{{1, 1}, {1, 1}}, {{1, 1}, {1, 1}}};
+    vector<vector<int>> vector6 = {{0, 0, 0, 0}, {0, 0, 0, 0}};
+    Matrix two_dim(vector6);
+    two_dim.reshape(three_dim, 2, 2, 2);
+    cout << two_dim << endl;
+    cout << "Slice matrix1 drom (1,0) to (3,2): \n"
+         << matrix1.slice(1, 0, 3, 2) << endl;
+    cout << "The convolution output of matrix2 and matrix5:\nmatrix1:" << matrix2 << endl;
+    cout << "matrix5:" << matrix5 << endl;
+    cout << "matrix2 * matrix5:" << matrix2.convolution(matrix5) << endl;
 }
