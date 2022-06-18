@@ -198,12 +198,12 @@ public:
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 matrix[i][j] = std::conj(matrix[i][j]);
-        return this;
+        return *this;
     }
 
     // element-wise multiplication
     Matrix<T> eleWiseMul(const Matrix<T> &m) {
-        if (m.cols == cols && m.row == rows) {
+        if (m.cols == cols && m.rows == rows) {
             Matrix<T> M(rows, cols);
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < cols; j++)
