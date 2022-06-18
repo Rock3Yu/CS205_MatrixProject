@@ -9,19 +9,19 @@ int main()
 {
     cout << "Test 1: different types of matrix.\n";
     vector<vector<int>> vector1 = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 1, 1, 2}, {3, 4, 5, 6}};
-    Matrix matrix1(vector1);
+    Matrix<int> matrix1(vector1);
     cout << "Integer matrix matrix1:\n"
          << matrix1 << endl;
     vector<vector<double>> vector2 = {{1.1, 2.2, 3, 4}, {5, 6, 7, 8}, {9, 1, 1, 2}, {3, 4, 5, 6}};
-    Matrix matrix2(vector2);
+    Matrix<double> matrix2(vector2);
     cout << "double matrix matrix2:\n"
          << matrix2 << endl;
     vector<vector<double>> vector3 = {{1.1, 2.2, 3, 4}, {5, 6, 7, 8}, {9, 0, 1, 2}, {3, 4, 5, 6}};
-    Matrix matrix3(vector3);
+    Matrix<double> matrix3(vector3);
     cout << "double matrix matrix3:\n"
          << matrix3 << endl;
     vector<vector<complex<double>>> vector4 = {{0, complex<double>(1, 2), 3, 4}, {5, 6, complex<double>(7, 8), 9}, {complex<double>(0, 2), complex<double>(3, 6), 0, 4}};
-    Matrix matrix4(vector4);
+    Matrix<complex<double>> matrix4(vector4);
     cout << "complex matrix matrix4:\n"
          << matrix4 << endl;
 
@@ -50,7 +50,7 @@ int main()
     cout << "element-wise multiplication of matrix2 and matrix3:\n"
          << matrix2.eleWiseMul(matrix3) << endl;
     cout << "cross product of matrix2 and matrix3:\n"
-         << matrix2.eleWiseMul(matrix3) << endl;
+         << matrix2.crossPro(matrix3) << endl;
     cout << "dot product of matrix2 and matrix3:\n"
          << matrix2.dotPro(matrix3) << endl;
 }
