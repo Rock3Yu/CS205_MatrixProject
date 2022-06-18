@@ -264,7 +264,7 @@ Matrix<T>   eleWiseMul(const Matrix<T> &m){
 //cross product
 Matrix<T>   crossPro(const Matrix<T> &m){
     try{
-        if(m.colunm == rows && m.row == cols){
+        if(m.row == cols){
         Matrix<T> M(rows,cols);
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
