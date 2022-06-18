@@ -10,7 +10,7 @@ This is the final project of CS205 C/C++ course.
 
    * 特征向量、特征值函数（余坤屹）
 
-   * class spareMatrix的完善（余坤屹）
+   * ~~class spareMatrix的完善~~（余坤屹）
 
    * main.cpp：所有函数的测试样例（雷其融）
 
