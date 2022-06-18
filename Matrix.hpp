@@ -115,6 +115,18 @@ Matrix<T>	Matrix::operator+(const Matrix<T> &m){
     }
 }
 
+    Matrix<T> operator+(T a)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                matrix[i][j]+=a;
+            }
+        }
+        return matrix;
+    }
+	
 //subtraction
 Matrix<T>	operator-(const Matrix<T> &m){
     try{
@@ -127,6 +139,18 @@ Matrix<T>	operator-(const Matrix<T> &m){
         cerr << exceptionString << endl;
     }
 }		
+
+Matrix<T> operator-(T a)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                matrix[i][j]-=a;
+            }
+        }
+        return matrix;
+    }
 
 // matrix-matrix multiplication & matrix-vector multiplication
 Matrix<T>	operator*(const Matrix<T> &m){
