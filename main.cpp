@@ -30,7 +30,7 @@ int main()
          << matrix2 + matrix3 << endl;
     cout << "matrix2 + 2:\n"
          << matrix2 + 2 << endl;
-    cout << "matrix2 - matrix4:\n"
+    cout << "matrix2 - matrix3:\n"
          << matrix2 - matrix3 << endl;
     cout << "matrix2 - 2:\n"
          << matrix2 - 2 << endl;
