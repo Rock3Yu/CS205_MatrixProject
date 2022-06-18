@@ -7,35 +7,6 @@
 using namespace std;
 //using namespace cv;
 
-template<typename T>
-struct element {
-    int row, col;
-    T value;
-
-    element(int row, int col, T value) : row(row), col(col), value(value) {}
-
-    bool operator<(const element &rhs) const {
-        if (row < rhs.row)
-            return true;
-        if (rhs.row < row)
-            return false;
-        return col < rhs.col;
-    }
-};
-
-template<class T>
-class Matrix;
-
-template<class T>
-class SpareMatrix {
-    int rows, cols;
-    int items, maxItems;
-    vector<element<T>> spareMatrix;
-    
-    
-    
-};
-
 template<class T>
 class Matrix {
 private:
@@ -772,6 +743,87 @@ Matrix<T>   dotPro(const Matrix<T> &m){
         }
         return output;
     }
+};
+
+template<typename T>
+struct element {
+    int row, col;
+    T value;
+
+    element(int row, int col, T value) : row(row), col(col), value(value) {}
+
+    bool operator<(const element &rhs) const {
+        if (row < rhs.row)
+            return true;
+        if (rhs.row < row)
+            return false;
+        return col < rhs.col;
+    }
+};
+
+template<class T>
+class SpareMatrix {
+private:
+    int rows, cols;
+    int items, maxItems;
+    vector<element<T>> spareMatrix;
+
+public:
+    // Constructors
+    SpareMatrix() : rows(0), cols(0), items(0), maxItems(0) { spareMatrix.resize(0); }
+
+    SpareMatrix(int row, int col) : rows(row), cols(col), items(0) {
+        maxItems = row * col;
+        spareMatrix.resize(0);
+    }
+
+    SpareMatrix(int row, int col, vector<element<T>> vec) {
+        rows = row;
+        cols = col;
+        items = vec.size();
+        maxItems = row * col;
+        spareMatrix = vec;
+    }
+
+    SpareMatrix(const SpareMatrix<T> &sm) {
+        rows = sm.getRows();
+        cols = sm.getCols();
+        items = sm.getItems();
+        maxItems = sm.getMaxItems();
+        spareMatrix = sm.getSpareMatrix();
+    }
+
+    explicit SpareMatrix(const Matrix<T> &m) {
+        rows = m.getRows();
+        cols = m.getCols();
+        items = 0;
+        maxItems = rows * cols;
+        vector<vector<T>> matrix = m.getMatrix();
+        for (int i = 0; i < matrix.size(); ++i) {
+            for (int j = 0; j < matrix[0].size(); ++j) {
+                if (matrix[i][j] != 0) {
+                    element<T> temp(i, j, matrix[i][j]);
+                    items++;
+                    spareMatrix.push_back(temp);
+                }
+            }
+        }
+    }
+
+    // Getters
+    int getRows() const { return rows; }
+
+    int getCols() const { return cols; }
+
+    int getItems() const { return items; }
+
+    int getMaxItems() const { return maxItems; }
+
+    const vector<element<T>> &getSpareMatrix() const { return spareMatrix; }
+
+    // Others func
+
+
 };
 
 //cv::abs()	矩阵内所有元素取绝对值并返回结果
