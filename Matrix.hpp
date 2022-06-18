@@ -244,7 +244,55 @@ public:
         }
     }
 	
+    //reference:https://blog.csdn.net/u013355826/article/details/64905921
+    //only for images of 1 channel and 3 channels, changing Matrix to Mat
+    //pt = the point of i row pixel
+    Mat matrix2Mat(int type){
+        if (type == 3){
+            Mat M = Mat::zeros(this->rows,this->cols/3,CV_8UC3);
+            for (int i = 0;i < rows;i++)        
+            {
+                uchar* pt = M.ptr<uchar>(i); 
+                for (int j = 0; j < cols; j++)   
+                {
+                    pt[j] = matrix[i][j];
+                }
+            }
+            return M;
+        }else if(type == 1){
+            Mat M = Mat::zeros(this->rows,this->cols,CV_8UC1);
+            for (int i = 0;i < rows;i++)        
+            {
+                uchar* pt = M.ptr<uchar>(i); 
+                for (int j = 0; j < cols; j++)   
+                {
+                    pt[j] = matrix[i][j];
+                }
+            }
+            return M;
+        }else{
+            cerr << "please input Mat of 1 or 3 channels" << endl;
+            return Mat::zeros(0, 0, CV_8UC1);
+        }
+    }
 
+
+    //changing Mat to Matrix
+    //pt = the point of i row pixel, row = rows of matrix, col = cols of matrix
+    Matrix<T> mat2Matrix(Mat M){
+        int row = M.rows;
+        int col = M.cols * M.channels();
+        Matrix<T> out(row, col);
+        for (int i=0; i<row; i++)        
+            {
+                uchar* pt = M.ptr<uchar>(i); 
+                for (int j=0; j<col; j++)   
+                {
+                    out.matrix[i][j] = pt[j];
+                }
+            }
+        return out;
+    }
 	
 	
 	
