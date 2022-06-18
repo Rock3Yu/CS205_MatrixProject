@@ -73,254 +73,178 @@ public:
     
     //note: Put Lin Peijun's codes here:
 
-	
-	Matrix<T>	operator+(const Matrix<T> &m) const ;		
-	Matrix<T>	operator-(const Matrix<T> &m) const ;		
-	Matrix<T>	operator*(const Matrix<T> &m) const ;	
-	void		operator+=(const Matrix<T> &m) ;			
-	void		operator-=(const Matrix<T> &m) ;			
-	void		operator*=(const Matrix<T> &m) ;
-    	template <typename T>			
-	void		operator*=(T scalar) ;
-    	template <typename T>
-    	void		operator/=(T scalar) ;
-    	template <typename T>					
-	Matrix<T>	operator*(T scalar) ;
-    	template <typename T>
-	Matrix<T>	operator/(T scalar) ;
-	bool		operator==(const Matrix<T> &m) const ;
-    
-    Matrix<T>   trans() const ;
-    Matrix<T>   conj() const ;
-    Matrix<T>   eleWiseMul(const Matrix<T> &m) ;
-    Matrix<T>   crossPro(const Matrix<T> &m);
-    Matrix<T>   dotPro(const Matrix<T> &m);
-	
-	  //addition
-Matrix<T>	Matrix::operator+(const Matrix<T> &m){
-    try{
-        if(m.colunm == cols && m.row == rows){
-        Matrix<T> M(rows,cols);
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
-                M[i,j] = matrix[i,j] + m[i,j];
-            }
-        }
-        return M;
-    }else{
-        throw "The sizes do not match when using \'+\'";
-    }
-    } catch(char *exceptionString) {
-        cerr << exceptionString << endl;
-    }
-}
-
-    Matrix<T> operator+(T a)
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                matrix[i][j]+=a;
-            }
-        }
-        return matrix;
-    }
-	
-//subtraction
-Matrix<T>	operator-(const Matrix<T> &m){
-    try{
-        if(m.colunm == cols && m.row == rows){
-        return (*this + (-1)*m);
-    }else{
-        throw "The sizes do not match when using \'-\'";
-    }
-    } catch(char *exceptionString) {
-        cerr << exceptionString << endl;
-    }
-}		
-
-Matrix<T> operator-(T a)
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                matrix[i][j]-=a;
-            }
-        }
-        return matrix;
-    }
-
-// matrix-matrix multiplication & matrix-vector multiplication
-Matrix<T>	operator*(const Matrix<T> &m){
-    try{
-        if(m.colunm == rows){
-            Matrix M(rows,cols);
-            for(int i=0; i<rows; i++){
-                for(int j=0; j<cols; j++){
-                M[i,j] += (matrix[i,j] + m[j,i]);
-                }
-            }
+    //addition
+    Matrix<T> operator+(const Matrix<T> &m) {
+        if (m.cols == cols && m.rows == rows) {
+            Matrix<T> M(rows, cols);
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols; j++)
+                    M.matrix[i][j] = matrix[i][j] + m.matrix[i][j];
             return M;
-        }else{
-            throw "The sizes do not match when using \'*\'";
+        } else {
+            cerr << "The sizes do not match when using '+'" << endl;
+            return Matrix<T>(0, 0);
         }
-    } catch(char *exceptionString) {
-        cerr << exceptionString << endl;
     }
-}
 
-//scalar multiplication
-template <class T>
-Matrix<T>	operator*(T scalar){
-    Matrix<T> M(rows,cols);
-     for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
-                M[i,j] = matrix[i,j] * scalar;
-            }
-        }
-    return M;
-}
-
-//scalar division
-template <class T>
-Matrix<T>	operator/(T scalar){
-    try{
-         Matrix<T> M(rows,cols);
-        if scalar == 0{
-        throw "0 is denominator";
-        }
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
-                M[i,j] = matrix[i,j] / scalar;
-            }
-        }
+    template<typename T2>
+    Matrix<T> operator+(const T2 scalar) {
+        Matrix<T> M(rows, cols);
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                M.matrix[i][j] = matrix[i][j] + scalar;
         return M;
-    } catch(char *exceptionString) {
-        cerr << exceptionString << endl;
     }
-   }
 
-void	operator+=(const Matrix<T> &m) {
-    *this = *this + m;
-}
-
-void	operator-=(const Matrix<T> &m) {
-    *this = *this - m;
-}			
-
-void	operator*=(const Matrix<T> &m){
-    *this = *this * m;
-}			
-
-template <typename T>
-void	operator/=(T scalar) {
-    *this = *this / scalar;
-}	
-
-template <typename T>
-void	operator*=(T scalar) {
-    *this = *this * scalar;
-}	
-
-bool	operator==(const Matrix<T> &m){
-    if(m.colunm == cols && m.row == rows){
-        int num = 0;
-        Matrix<T> M(rows,cols);
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
-                M[i,j] = matrix[i,j] - m[i,j];
-                if(M[i,j] == 0)
-                num++;
-            }
-        }
-        if(num == cols*rows)
-        return true;
-        else
-        return false;
-    }else{
-        return false;
-    }
-}
-
-
-//transposition    
-Matrix<T>   trans(){
-    Matrix<T> M(cols,rows);
-    for(int i=0; i<cols; i++){
-        for(int j=0; j<rows; j++){
-            M[i,j] = matrix[j,i];
+    //subtraction
+    Matrix<T> operator-(const Matrix<T> &m) {
+        if (m.cols == cols && m.rows == rows) {
+            Matrix<T> M(rows, cols);
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols; j++)
+                    M.matrix[i][j] = matrix[i][j] - m.matrix[i][j];
+            return M;
+        } else {
+            cerr << "The sizes do not match when using '-'" << endl;
+            return Matrix<T>(0, 0);
         }
     }
-    return M;
-}
 
-//conjugation
-Matrix<T>   conj() {
-     Matrix<T> M(row, column);
-        for (int i=0; i<row; i++){
-            for (int j=0; j<column; j++){
-                M[i][j] = conj(matrix[i][j]);
-            }
-        }
+    template<typename T2>
+    Matrix<T> operator-(const T2 scalar) {
+        Matrix<T> M(rows, cols);
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                M.matrix[i][j] = matrix[i][j] - scalar;
         return M;
-}
-
-//element-wise multiplication
-Matrix<T>   eleWiseMul(const Matrix<T> &m){
-    try{
-         if(m.colunm == cols && m.row == rows){
-        Matrix<T> M(rows,cols);
-    for(int i=0; i<rows; i++){
-        for(int j=0; j<cols; j++){
-            M[i,j] = matrix[i,j] * m[i,j];
-        }
-    }return M;
-    }else{
-        throw "The sizes do not match when using \'eleWiseMul\'";
     }
-    } catch(char *exceptionString) {
-        cerr << exceptionString << endl;
-    }
-   }
 
-//cross product
-Matrix<T>   crossPro(const Matrix<T> &m){
-    try{
-        if(m.row == cols){
-        Matrix<T> M(rows,cols);
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
-                M[i,j] += (matrix[i,j] + m[j,i]);
-            }
+    // matrix-matrix multiplication & matrix-vector multiplication
+    Matrix<T> operator*(const Matrix<T> &m) {
+        if (cols == m.rows) {
+            int loop = cols;
+            Matrix M(rows, m.cols);
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < m.cols; j++)
+                    for (int k = 0; k < loop; ++k)
+                        M.matrix[i][j] += matrix[i][loop] * m.matrix[loop][j];
+            return M;
+        } else {
+            cerr << "The sizes do not match when using '*'" << endl;
+            return Matrix<T>(0, 0);
         }
+    }
+
+    //scalar multiplication
+    template<typename T2>
+    Matrix<T> operator*(const T2 scalar) {
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                matrix[i][j] *= scalar;
+        return *this;
+    }
+
+    //scalar division
+    template<typename T2>
+    Matrix<T> operator/(T2 scalar) {
+        if (scalar == 0) {
+            cerr << "0 is denominator" << endl;
+            return Matrix<T>(0, 0);
+        }
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                matrix[i][j] /= scalar;
+        return *this;
+    }
+
+    void operator+=(const Matrix<T> &m) { *this = *this + m; }
+
+    template<typename T2>
+    void operator+=(const T2 scalar) { *this = *this + scalar; }
+
+    void operator-=(const Matrix<T> &m) { *this = *this - m; }
+
+    template<typename T2>
+    void operator-=(const T2 scalar) { *this = *this - scalar; }
+
+    void operator*=(const Matrix<T> &m) { *this = *this * m; }
+
+    template<typename T2>
+    void operator/=(T2 scalar) { *this = *this / scalar; }
+
+    template<typename T2>
+    void operator*=(T2 scalar) { *this = *this * scalar; }
+
+    bool operator==(const Matrix<T> &m) {
+        if (m.cols == cols && m.rows == rows) {
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols; j++)
+                    if (matrix[i][j] != m.matrix[i][j]) return false;
+            return true;
+        } else return false;
+    }
+
+    // transposition
+    Matrix<T> trans() {
+        Matrix<T> M(cols, rows);
+        for (int i = 0; i < cols; i++)
+            for (int j = 0; j < rows; j++)
+                M.matrix[i][j] = matrix[j][i];
         return M;
-        }else{
-            throw "The sizes do not match when using \'crossPro\'";
-        }
-    } catch(char *exceptionString) {
-        cerr << exceptionString << endl;
     }
-}
 
-//dot product
-Matrix<T>   dotPro(const Matrix<T> &m){
-    try{
-        if(m.colunm == cols && m.row == rows){
-            Matrix<T> M(rows,cols);
-            for(int i=0; i<rows; i++){
-                for(int j=0; j<cols; j++){
-                M[i,j] = matrix[i,j] * m[i,j];
-                }
-            }return M;
-        }else{
-            throw "The sizes do not match when using \'dotPro\'";
-        }
-    } catch(char *exceptionString) {
-        cerr << exceptionString << endl;
+    // conjugation
+    Matrix<T> conj() {
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                matrix[i][j] = std::conj(matrix[i][j]);
+        return this;
     }
-}
+
+    // element-wise multiplication
+    Matrix<T> eleWiseMul(const Matrix<T> &m) {
+        if (m.cols == cols && m.row == rows) {
+            Matrix<T> M(rows, cols);
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols; j++)
+                    M.matrix[i][j] = matrix[i][j] * m.matrix[i][j];
+            return M;
+        } else {
+            cerr << "The sizes do not match when using 'eleWiseMul'" << endl;
+            return Matrix<T>(0, 0);
+        }
+    }
+
+    //dot product (only 1xn vector accept)
+    T dotPro(const Matrix<T> &m) {
+        if (cols == 1 && m.cols == 1 && rows == m.rows) {
+            T out = 0;
+            for (int i = 0; i < rows; ++i)
+                out += matrix[0][i] * m.matrix[0][i];
+            return out;
+        } else {
+            cerr << "The sizes do not match when using 'dotPro'" << endl;
+            return 0;
+        }
+    }
+
+    // cross product (only 3-dim vector (1x3) accept)
+    // n = u(x1, y1, z1) x v(x2, y2, z2)
+    // = (y1z2 - y2z1, x2z1-z2x1, x1y2 -x2y1)
+    Matrix<T> crossPro(const Matrix<T> &m) {
+        if (rows == m.rows && rows == 1 && cols == m.cols && cols == 3) {
+            Matrix<T> out(1,3);
+            out.matrix[0][0] = matrix[0][1] * m.matrix[0][2] - m.matrix[0][1] * matrix[0][2];
+            out.matrix[0][1] = m.matrix[0][0] * matrix[0][2] - m.matrix[0][2] * matrix[0][0];
+            out.matrix[0][2] = matrix[0][0] * m.matrix[0][1] - m.matrix[0][0] * matrix[0][1];
+            return out;
+        } else {
+            cerr << "The sizes do not match when using 'crossPro'" << endl;
+            return Matrix<T>(0, 0);
+        }
+    }
+	
+
 	
 	
 	
