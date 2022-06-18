@@ -30,6 +30,20 @@ Mat img2 = m.convolution(kernel).matrix2Mat(3);
 temp = {{0,-1,0},{-1,4,-1},{0,-1,0}}; 
 Matrix<char> kernel2(temp);
 Mat img3 = m.convolution(kernel2).matrix2Mat(3);
+  
+namedWindow("original",0);
+imshow("original", img);
+waitKey(0);
+namedWindow("slice",0);
+imshow("slice",img1);
+waitKey(0);
+namedWindow("edgeDetect",0);
+imshow("edgeDetect",img2);
+waitKey(0);
+namedWindow("LaSharpen",0);
+imshow("LaSharpen",img3);
+waitKey(0);
+  
 imwrite("F:\\opencv\\LANE_DETECTION\\img/read.jpg",img);
 imwrite("F:\\opencv\\LANE_DETECTION\\img/slice.jpg",img1);
 imwrite("F:\\opencv\\LANE_DETECTION\\img/edgeDetect.jpg",img2);
