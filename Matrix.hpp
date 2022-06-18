@@ -15,7 +15,7 @@ private:
 
 public:
     // Constructors
-    Matrix() : rows(0), cols(0) { matrix.resize(0, 0); }
+    Matrix() : rows(0), cols(0) { matrix.resize(0); }
 
     Matrix(int r, int c) {
         rows = r;
