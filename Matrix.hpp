@@ -59,7 +59,7 @@ public:
             os << "[" << m.matrix[i][0];
             for (int j = 1; j < m.cols; ++j) os << " " << m.matrix[i][j];
             if (i != m.rows - 1)os << "]\n";
-            else os << "]]";
+            else os << "]]\n";
         }
         return os;
     }
@@ -858,7 +858,7 @@ public:
                 index++;
             } else os << "[0";
             for (int j = 1; j < sm.cols; ++j) {
-                if (sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == 0) {
+                if (sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == j) {
                     os << " " << sm.spareMatrix[index].value;
                     index++;
                 } else os << " 0";
