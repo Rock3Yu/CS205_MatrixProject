@@ -7,10 +7,10 @@ using namespace std;
 
 int main()
 {
-    vector<vector<int>> vec1 = {{1, 1}, {1, 1}}; // 2×2
-    Matrix mat1(vec1);
-    vector<vector<int>> vec2 = {{1, 1, 1}}; // 1×3
-    Matrix mat2(vec2);
+    vector<vector<int> > vec1 = {{1, 1}, {1, 1}}; // 2×2
+    Matrix<int> mat1(vec1);
+    vector<vector<int> > vec2 = {{1, 1, 1}}; // 1×3
+    Matrix<int> mat2(vec2);
     cout << "This the exception test of matrix.hpp." << endl;
     cout << "1.For matrix adding and subtracting, if the size are not the same:" << endl;
     cout << "mat1:\n"
@@ -35,8 +35,8 @@ int main()
     cout << "Slice: " << mat1.slice(10, 10, 10, 10) << endl;
 
     cout << "4.The matrix have no inverse/determinent..." << endl;
-    cout << "Eigenvalue: " << mat2.eigenValue() << endl;
-    cout << "Eigenvector: " << mat2.eigenVector() << endl;
+    // cout << "Eigenvalue: " << mat2.eigenValue() << endl;
+    // cout << "Eigenvector: " << mat2.eigenVector() << endl;
     cout << "Inverse: " << mat2.invert() << endl;
     cout << "Trace: " << mat2.trace() << endl;
     cout << "Determinent: " << mat2.determinant() << endl;
