@@ -822,8 +822,52 @@ public:
     const vector<element<T>> &getSpareMatrix() const { return spareMatrix; }
 
     // Others func
+    bool insert(int row, int col, T val) {
+        element<T> e(row, col, val);
+        return insert(e);
+    }
 
+    bool insert(element<T> &e){
+        if (!(e.row >= 0 && e.row < rows) || !(e.col >= 0 && e.col < cols)) {
+            cerr << "error in insert()! Out the Spare Matrix bounds!" << endl;
+            return false;
+        }
+        // if it has duplication
+        for (int i = 0; i < spareMatrix.size(); ++i) {
+            if (spareMatrix[i].row == e.row && spareMatrix[i].col == e.col) {
+                spareMatrix[i].value = e.value;
+                return true;
+            }
+        }
+        // else
+        items++;
+        spareMatrix.push_back(e);
+        sort(spareMatrix.begin(), spareMatrix.end());
+        return true;
+    }
 
+    friend ostream &operator<<(ostream &os, const SpareMatrix &sm) {
+        os << "Spare Matrix with (row, col) = (" << sm.rows << ", "
+            << sm.cols << ")" << endl;
+        int index = 0;
+        os << "[";
+        for (int i = 0; i < sm.rows; ++i) {
+            if (i != 0) os << " ";
+            if (sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == 0) {
+                os << "[" << sm.spareMatrix[index].value;
+                index++;
+            } else os << "[0";
+            for (int j = 1; j < sm.cols; ++j) {
+                if (sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == 0) {
+                    os << " " << sm.spareMatrix[index].value;
+                    index++;
+                } else os << " 0";
+            }
+            if (i != sm.rows - 1) os << "]\n";
+            else os << "]]\n";
+        }
+        return os;
+    }
 };
 
 //cv::abs()	矩阵内所有元素取绝对值并返回结果
