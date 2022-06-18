@@ -92,6 +92,12 @@ public:
         }
         return os;
     }
+	
+    const vector<vector<T>> &getMatrix() const { return matrix; }
+
+    int getRows() const { return rows; }
+
+    int getCols() const { return cols; }
     
     
     //note: Put Lin Peijun's codes here:
