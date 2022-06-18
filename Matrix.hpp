@@ -511,7 +511,7 @@ public:
         int row_count = 0, col_count = 0;
         for (int i = 0; i < this->rows; i++)
         {
-            for (int j = 0; j < this->cols j++)
+            for (int j = 0; j < this->cols; j++)
             {
                 if (col_count == column)
                 {
