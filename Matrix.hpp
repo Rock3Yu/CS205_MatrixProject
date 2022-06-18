@@ -44,7 +44,7 @@ public:
         cols = m1.cols;
     }
     
-    void &operator=(const Matrix<T> &m) {
+    void operator=(const Matrix<T> &m) {
         this->matrix = m.matrix;
         this->rows = m.rows;
         this->cols = m.cols;
