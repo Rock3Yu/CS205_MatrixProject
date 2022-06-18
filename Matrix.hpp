@@ -10,7 +10,7 @@ using namespace std;
 template<class T>
 class Matrix {
 private:
-    vector<vector<T>> matrix;
+    vector<vector<T> > matrix;
     int rows, cols;
 
 public:
@@ -31,7 +31,7 @@ public:
      * vec1[0][0] = 100;
      * cout << vec2[0][0]; // output: 1
      */
-    explicit Matrix(vector<vector<T>> matrix) {
+    explicit Matrix(vector<vector<T> > matrix) {
         this->matrix = matrix;
         rows = matrix.size();
         cols = matrix[0].size();
@@ -64,7 +64,7 @@ public:
         return os;
     }
 	
-    const vector<vector<T>> &getMatrix() const { return matrix; }
+    const vector<vector<T> > &getMatrix() const { return matrix; }
 
     int getRows() const { return rows; }
 
@@ -434,11 +434,11 @@ public:
     /**
      * @brief the actual func calculate the det(A)
      * */
-    T detUtility(vector<vector<T>> v, int n) {
+    T detUtility(vector<vector<T> > v, int n) {
         if (n == 1) { return v[0][0]; }
         T sum = 0;
         for (int i = 0; i < n; ++i) {
-            vector<vector<T>> s;
+            vector<vector<T> > s;
             for (int j = 0; j < n - 1; ++j) {
                 vector<T> temp;
                 for (int k = 0; k < n; ++k) if (j != k) temp.push_back(v[j][k]);
@@ -462,7 +462,7 @@ public:
             cerr << "Matrix with det = 0 has no invert!" << endl;
             return Matrix<T>(0, 0);
         }
-        vector<vector<T>> vec;
+        vector<vector<T> > vec;
         for (int i = 0; i < rows; ++i) {
             vector<T> temp;
             for (int j = 0; j < cols; ++j)
@@ -475,7 +475,7 @@ public:
     }
 
     T adjointMatrix(int r, int c) {
-        vector<vector<T>> vec;
+        vector<vector<T> > vec;
         for (int i = 0; i < rows; ++i) {
             if (i == r) continue;
             vector<T> temp;
@@ -500,14 +500,15 @@ public:
      * @return the matrix after reshape. If invalid, return the original matrix.
      *
      */
-    Matrix reshape(int row, int column)
+    Matrix<T> reshape(int row, int column)
     {
+        Matrix<T> output(row, column);
         if (this->rows * this->cols != row * column)
         {
             cout << "The parameter is not valid!";
-            return this->matrix;
+            return output;
         }
-        Matrix output(row, column);
+        
         int row_count = 0, col_count = 0;
         for (int i = 0; i < this->rows; i++)
         {
@@ -518,7 +519,7 @@ public:
                     col_count = 0;
                     row_count++;
                 }
-                output[i][j] = this->matrix[row_count][col_count];
+                output.matrix[i][j] = this->matrix[row_count][col_count];
                 col_count++;
             }
         }
@@ -533,12 +534,12 @@ public:
      * @return the matrix after reshape. If invalid, return the original matrix.
      *
      */
-    Matrix reshape(int num, bool isRow)
+    Matrix<T> reshape(int num, bool isRow)
     {
         if (this->rows * this->cols % num != 0)
         {
             cout << "The parameter is not valid!";
-            return this->matrix;
+            return Matrix<T>(this->rows,this->cols);
         }
         else
         {
@@ -565,14 +566,15 @@ public:
      * m.reshape(A,x,y,z);
      *
      */
-    Matrix reshape(vector<vector<vector<T>>> A, int x, int y, int z)
+    Matrix<T> reshape(vector<vector<vector<T> > > A, int x, int y, int z)
     {
         if (x * y * z != this->rows * this->cols)
         {
             cout << "The parameter is not valid!";
-            return this;
+            return Matrix<T>(0,0);
         }
         int x_count = 0, y_count = 0, z_count = 0;
+        Matrix<T> output(this->rows,this->cols);
         for (int i = 0; i < this->rows; i++)
         {
             for (int j = 0; j < this->cols; j++)
@@ -587,11 +589,11 @@ public:
                     y_count = 0;
                     x_count++;
                 }
-                this->matrix[i][j] = A[x_count][y_count][z_count];
+                output.matrix[i][j] = A[x_count][y_count][z_count];
                 z_count++;
             }
         }
-        return this;
+        return output;
     }
 	
     /**
@@ -602,13 +604,13 @@ public:
      * @return the matrix after slicing
      *
      */
-    Matrix slice(int start_row, int end_row, int start_col, int end_col)
+    Matrix<T> slice(int start_row, int end_row, int start_col, int end_col)
     {
         // Handle the exception  of invalid input.
         if (start_row < 0 || start_col < 0 || start_row >= this->rows || start_col >= this->cols || end_row < 0 || end_col < 0 || end_row >= this->rows || end_col >= this->cols)
         {
             cerr << "Invalid input!" << endl;
-            return Matrix(0, 0);
+            return Matrix<T>(0, 0);
         }
         // Handle the exception that input the opposite direction of start and end number
         int x1, y1, x2, y2;
@@ -632,7 +634,7 @@ public:
             y2 = end_col;
             y1 = start_col;
         }
-        Matrix output(x2 - x1 + 1, y2 - y1 + 1);
+        Matrix<T> output(x2 - x1 + 1, y2 - y1 + 1);
         for (int i = 0; i < output.rows; i++)
         {
             for (int j = 0; j < output.cols; j++)
@@ -655,20 +657,12 @@ public:
      * m.reshape(n);
      *
      */
-    Matrix convolution(const Matrix &m2)
+    Matrix<T> convolution(Matrix &m2)
     {
         // turn 180˚ of the matrix be convolutioned
-        vector<vector<T>> temp = m2.matrix;
-        for (int i = 0; i < m2.rows; i++)
-        {
-            for (int j = 0; j < m2.cols; j++)
-            {
-                temp[i][j] = m2.matrix[m2.rows - i][m2.cols - j];
-            }
-        }
-        m2.matrix = temp;
+        m2=m2.trans().trans();
         // extend the size of the matrix
-        Matrix output(this->rows, this->cols);
+        Matrix<T> output(this->rows, this->cols);
         for (int i = 0; i < output.rows; i++)
         {
             for (int j = 0; j < output.cols; j++)
@@ -714,7 +708,7 @@ class SpareMatrix {
 private:
     int rows, cols;
     int items, maxItems;
-    vector<element<T>> spareMatrix;
+    vector<element<T> > spareMatrix;
 
 public:
     // Constructors
@@ -725,7 +719,7 @@ public:
         spareMatrix.resize(0);
     }
 
-    SpareMatrix(int row, int col, vector<element<T>> vec) {
+    SpareMatrix(int row, int col, vector<element<T> > vec) {
         rows = row;
         cols = col;
         items = vec.size();
@@ -746,7 +740,7 @@ public:
         cols = m.getCols();
         items = 0;
         maxItems = rows * cols;
-        vector<vector<T>> matrix = m.getMatrix();
+        vector<vector<T> > matrix = m.getMatrix();
         for (int i = 0; i < matrix.size(); ++i) {
             for (int j = 0; j < matrix[0].size(); ++j) {
                 if (matrix[i][j] != 0) {
@@ -767,7 +761,7 @@ public:
 
     int getMaxItems() const { return maxItems; }
 
-    const vector<element<T>> &getSpareMatrix() const { return spareMatrix; }
+    const vector<element<T> > &getSpareMatrix() const { return spareMatrix; }
 
     // Others func
     bool insert(int row, int col, T val) {
