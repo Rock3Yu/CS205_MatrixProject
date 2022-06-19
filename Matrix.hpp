@@ -139,23 +139,25 @@ public:
     //scalar multiplication
     template<typename T2>
     Matrix<T> operator*(const T2 scalar) {
+        Matrix<T> out = *this;
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 matrix[i][j] *= scalar;
-        return *this;
+        return out;
     }
 
     //scalar division
     template<typename T2>
-    Matrix<T> operator/(T2 scalar) {
+    Matrix<T> operator/(const T2 scalar) {
         if (scalar == 0) {
             cerr << "0 is denominator" << endl;
             return Matrix<T>(0, 0);
         }
+        Matrix<T> out = *this;
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                matrix[i][j] /= scalar;
-        return *this;
+                out.matrix[i][j] = matrix[i][j] / scalar;
+        return out;
     }
 
     void operator+=(const Matrix<T> &m) { *this = *this + m; }
