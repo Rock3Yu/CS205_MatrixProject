@@ -482,15 +482,19 @@ public:
         vector<T> val;
         vector<vector<T>> vec;
         eigenUtility(val, vec);
-        Matrix<T> out(out);
+        Matrix<T> out(vec);
         return out;
     }
 
     void eigenUtility(vector<T> &val, vector<vector<T>> &vec) {
-        int n = 4;
+        val.resize(rows);
+        vec.resize(rows);
+        for (int i = 0; i < rows; ++i) vec[i].resize(rows);
+        vector<vector<T>> m = matrix;
+        int n = rows;
         double eps = 1e-10;
         int loop = 10000;
-        Jacobi(matrix, n, vec, val, eps, loop);
+        Jacobi(m, n, vec, val, eps, loop);
     }
 
     bool Jacobi(vector<vector<double>> matrix, int dim, vector<vector<double>> &eigenvectors,
