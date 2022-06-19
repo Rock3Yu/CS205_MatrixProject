@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <complex>
+#include <algorithm>
 #include "Matrix.hpp"
 
 using namespace std;
@@ -87,6 +88,13 @@ int main()
     cout << "matrix2 * matrix5:" << matrix2.convolution(matrix5) << endl;
 
     cout<<"\nTest 6: sparse matrix\n";
-    SpareMatrix<double> spare_matrix(5,5);
+    SpareMatrix<double> sm1(5,5);
+    cout << "The default (5, 5) sparse matrix: \n" << sm1;
+    cout << "\nInsert 3 elements in it:" << endl;
+    sm1.insert(1,1,20.0);
+    sm1.insert(0,0,19.98);
+    element<double> in(3,4,66.66);
+    sm1.insert(in);
+    cout << sm1 << endl;
 
 }
