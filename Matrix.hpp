@@ -128,7 +128,7 @@ public:
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < m.cols; j++)
                     for (int k = 0; k < loop; ++k)
-                        M.matrix[i][j] += matrix[i][loop] * m.matrix[loop][j];
+                        M.matrix[i][j] += matrix[i][k] * m.matrix[k][j];
             return M;
         } else {
             cerr << "The sizes do not match when using '*'" << endl;
