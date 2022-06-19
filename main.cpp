@@ -50,10 +50,15 @@ int main()
 
     cout << "element-wise multiplication of matrix2 and matrix3:\n"
          << matrix2.eleWiseMul(matrix3) << endl;
-    cout << "cross product of matrix2 and matrix3:\n"
-         << matrix2.eleWiseMul(matrix3) << endl;
-    cout << "dot product of matrix2 and matrix3:\n"
-         << matrix2.dotPro(matrix3) << endl;
+    
+    Matrix<double> A({{-1, 2, 3}});
+    Matrix<double> B({{1, -10, 6}});
+    cout << "Matrix A and B are 1-dim matrices (or called vectors):" << endl
+         << "A:" << A << "\nB:" << B << endl;
+    cout << "cross product of matrixA and matrixB:\n"
+         << A.crossPro(B) << endl;
+    cout << "dot product of matrixA and matrixB:\n"
+         << A.dotPro(B) << endl;
 
     cout << "\nTest 3: max, min, sum, mean\n";
     cout << "Max matrix1 = " << matrix1.max() << ", max row 0 of matrix1 = " << matrix1.max(0) << ", max column 0 of matrix1 = " << matrix1.max(0, true) << endl;
