@@ -604,6 +604,7 @@ public:
 
         return true;
     }
+
 	
     /**
      * @brief trace of the Matrix
