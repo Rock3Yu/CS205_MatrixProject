@@ -993,12 +993,12 @@ public:
         os << "[";
         for (int i = 0; i < sm.rows; ++i) {
             if (i != 0) os << " ";
-            if (sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == 0) {
+            if (index < sm.spareMatrix.size() && sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == 0) {
                 os << "[" << sm.spareMatrix[index].value;
                 index++;
             } else os << "[0";
             for (int j = 1; j < sm.cols; ++j) {
-                if (sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == j) {
+                if (index < sm.spareMatrix.size() && sm.spareMatrix[index].row == i && sm.spareMatrix[index].col == j) {
                     os << " " << sm.spareMatrix[index].value;
                     index++;
                 } else os << " 0";
