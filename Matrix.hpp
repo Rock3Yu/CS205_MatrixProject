@@ -468,18 +468,18 @@ public:
     /**
      * @brief 特征值和特征向量 幂法、雅克比法以及QR法
      * */
-    vector<T> eigenValue() {
+    Matrix<T> eigenValue() {
         vector<T> val;
         vector<vector<T>> vec;
         eigenUtility(val, vec);
-        return val;
+        return new Matrix<T>(val);
     }
 
-    vector<vector<T>> eigenVector() {
+    Matrix<T> eigenVector() {
         vector<T> val;
         vector<vector<T>> vec;
         eigenUtility(val, vec);
-        return vec;
+        return new Matrix<T>(vec);
     }
 
     void eigenUtility(vector<T> &val, vector<vector<T>> &vec) {
