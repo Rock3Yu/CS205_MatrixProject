@@ -142,7 +142,7 @@ public:
         Matrix<T> out = *this;
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                matrix[i][j] *= scalar;
+                out.matrix[i][j] *= scalar;
         return out;
     }
 
