@@ -220,9 +220,9 @@ public:
 
     //dot product (only 1xn vector accept)
     T dotPro(const Matrix<T> &m) {
-        if (cols == 1 && m.cols == 1 && rows == m.rows) {
+        if (rows == 1 && m.rows == 1 && cols == m.cols) {
             T out = 0;
-            for (int i = 0; i < rows; ++i)
+            for (int i = 0; i < cols; ++i)
                 out += matrix[0][i] * m.matrix[0][i];
             return out;
         } else {
