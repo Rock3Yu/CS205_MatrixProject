@@ -60,13 +60,13 @@ int main()
     cout << "dot product of matrixA and matrixB:\n"
          << A.dotPro(B) << endl;
 
-    cout << "\nTest 3: max, min, sum, mean\n";
+    cout << "\nTest 4: max, min, sum, mean\n";
     cout << "Max matrix1 = " << matrix1.max() << ", max row 0 of matrix1 = " << matrix1.max(0) << ", max column 0 of matrix1 = " << matrix1.max(0, true) << endl;
     cout << "Min matrix1 = " << matrix1.min() << ", min row 0 of matrix1 = " << matrix1.min(0) << ", min column 0 of matrix1 = " << matrix1.min(0, true) << endl;
     cout << "The sum of matrix1 = " << matrix1.sum() << ", sum row 0 of matrix1 = " << matrix1.sum(0) << ", sum column 0 of matrix1 = " << matrix1.sum(0, true) << endl;
     cout << "The mean of matrix1 = " << matrix1.mean() << ", mean row 0 of matrix1 = " << matrix1.mean(0) << ", mean column 0 of matrix1 = " << matrix1.mean(0, true) << endl;
 
-    cout << "\n Test 4: eigenvalue, eigenvector, trace, inverse, determinent\n";
+    cout << "\n Test 5: eigenvalue, eigenvector, trace, inverse, determinent\n";
     vector<vector<double> > vector5 = {{1, 2, 2}, {2, 1, 2}, {2, 2, 1}};
     Matrix<double> matrix5(vector5);
     // cout << "The eigrnvalue of " << matrix5 << "is: " << matrix5.eigenValue() << endl;
@@ -76,7 +76,7 @@ int main()
     cout << "The inverse is: " << matrix5.invert() << endl;
     cout << "The determinent is: " << matrix5.determinant() << endl;
 
-    cout << "\nTest 5: reshape, slice, convolution";
+    cout << "\nTest 6: reshape, slice, convolution";
     cout << "Reshape matrix1:\n"
          << matrix1 << "from " << matrix1.getRows() << "×" << matrix1.getCols() << " to 2×8:\n"
          << matrix1.reshape(2, 8) << endl;
@@ -92,7 +92,7 @@ int main()
     cout << "matrix5:" << matrix5 << endl;
     cout << "matrix2 * matrix5:" << matrix2.convolution(matrix5) << endl;
 
-    cout<<"\nTest 6: sparse matrix\n";
+    cout<<"\nTest 7: sparse matrix\n";
     SpareMatrix<double> sm1(5,5);
     cout << "The default (5, 5) sparse matrix: \n" << sm1;
     cout << "\nInsert 3 elements in it:" << endl;
