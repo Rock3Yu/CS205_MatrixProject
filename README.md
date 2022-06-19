@@ -2,8 +2,6 @@
 
 This is the final project of CS205 C/C++ course.
 
-请参考：https://github.com/rzy0901/CS205_Matrix
-
 划红线：# 周六（6.18）我们需要将所有需要完成的功能实现！# 周日（6.19）早上我们进行答辩准备（sildes + report）
 
 列出一下任务，请在你认领的任务（）里写上自己的名字：
