@@ -472,14 +472,18 @@ public:
         vector<T> val;
         vector<vector<T>> vec;
         eigenUtility(val, vec);
-        return new Matrix<T>(val);
+        vector<vector<T>> temp;
+        temp.push_back(val);
+        Matrix<T> out(temp);
+        return out;
     }
 
     Matrix<T> eigenVector() {
         vector<T> val;
         vector<vector<T>> vec;
         eigenUtility(val, vec);
-        return new Matrix<T>(vec);
+        Matrix<T> out(out);
+        return out;
     }
 
     void eigenUtility(vector<T> &val, vector<vector<T>> &vec) {
