@@ -640,7 +640,7 @@ public:
                 for (int k = 1; k < n; ++k) temp.push_back(v[j][k]);
                 s.push_back(temp);
             }
-            sum += pow(-1, 0 + i) * v[0][i] * detUtility(s, n - 1);
+            sum += pow(-1, 0 + i) * v[i][0] * detUtility(s, n - 1);
         }
         return sum;
     }
