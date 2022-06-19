@@ -465,6 +465,138 @@ public:
     }
 	
     /**
+     * @brief 特征值和特征向量 幂法、雅克比法以及QR法
+     * */
+    vector<T> eigenValue() {
+        vector<T> val;
+        vector<vector<T>> vec;
+        eigenUtility(val, vec);
+        return val;
+    }
+
+    vector<vector<T>> eigenVector() {
+        vector<T> val;
+        vector<vector<T>> vec;
+        eigenUtility(val, vec);
+        return vec;
+    }
+
+    void eigenUtility(vector<T> &val, vector<vector<T>> &vec) {
+        int n = 4;
+        double eps = 1e-10;
+        int loop = 10000;
+        Jacobi(matrix, n, vec, val, eps, loop);
+    }
+
+    bool Jacobi(vector<vector<double>> matrix, int dim, vector<vector<double>> &eigenvectors,
+                vector<double> &eigenvalues, double precision, int max) {
+        for (int i = 0; i < dim; i++) {
+            eigenvectors[i][i] = 1.0f;
+            for (int j = 0; j < dim; j++) {
+                if (i != j)
+                    eigenvectors[i][j] = 0.0f;
+            }
+        }
+
+        int nCount = 0;        //current iteration
+        while (1) {
+            //find the largest element on the off-diagonal line of the matrix
+            double dbMax = matrix[0][1];
+            int nRow = 0;
+            int nCol = 1;
+            for (int i = 0; i < dim; i++) {            //row
+                for (int j = 0; j < dim; j++) {        //column
+                    double d = fabs(matrix[i][j]);
+                    if ((i != j) && (d > dbMax)) {
+                        dbMax = d;
+                        nRow = i;
+                        nCol = j;
+                    }
+                }
+            }
+
+            if (dbMax < precision)     //precision check
+                break;
+            if (nCount > max)       //iterations check
+                break;
+            nCount++;
+
+            double dbApp = matrix[nRow][nRow];
+            double dbApq = matrix[nRow][nCol];
+            double dbAqq = matrix[nCol][nCol];
+            //compute rotate angle
+            double dbAngle = 0.5 * atan2(-2 * dbApq, dbAqq - dbApp);
+            double dbSinTheta = sin(dbAngle);
+            double dbCosTheta = cos(dbAngle);
+            double dbSin2Theta = sin(2 * dbAngle);
+            double dbCos2Theta = cos(2 * dbAngle);
+            matrix[nRow][nRow] = dbApp * dbCosTheta * dbCosTheta +
+                                 dbAqq * dbSinTheta * dbSinTheta + 2 * dbApq * dbCosTheta * dbSinTheta;
+            matrix[nCol][nCol] = dbApp * dbSinTheta * dbSinTheta +
+                                 dbAqq * dbCosTheta * dbCosTheta - 2 * dbApq * dbCosTheta * dbSinTheta;
+            matrix[nRow][nCol] = 0.5 * (dbAqq - dbApp) * dbSin2Theta + dbApq * dbCos2Theta;
+            matrix[nCol][nRow] = matrix[nRow][nCol];
+
+            for (int i = 0; i < dim; i++) {
+                if ((i != nCol) && (i != nRow)) {
+                    dbMax = matrix[i][nRow];
+                    matrix[i][nRow] = matrix[i][nCol] * dbSinTheta + dbMax * dbCosTheta;
+                    matrix[i][nCol] = matrix[i][nCol] * dbCosTheta - dbMax * dbSinTheta;
+                }
+            }
+
+            for (int j = 0; j < dim; j++) {
+                if ((j != nCol) && (j != nRow)) {
+                    dbMax = matrix[nRow][j];
+                    matrix[nRow][j] = matrix[nCol][j] * dbSinTheta + dbMax * dbCosTheta;
+                    matrix[nCol][j] = matrix[nCol][j] * dbCosTheta - dbMax * dbSinTheta;
+                }
+            }
+
+            //compute eigenvector
+            for (int i = 0; i < dim; i++) {
+                dbMax = eigenvectors[i][nRow];
+                eigenvectors[i][nRow] = eigenvectors[i][nCol] * dbSinTheta + dbMax * dbCosTheta;
+                eigenvectors[i][nCol] = eigenvectors[i][nCol] * dbCosTheta - dbMax * dbSinTheta;
+            }
+        }
+
+        //sort eigenvalues
+        std::map<double, int> mapEigen;
+        for (int i = 0; i < dim; i++) {
+            eigenvalues[i] = matrix[i][i];
+            mapEigen.insert(make_pair(eigenvalues[i], i));
+        }
+
+        vector<vector<double>> pdbTmpVec;
+        pdbTmpVec.resize(dim);
+        for (int i = 0; i < dim; ++i) pdbTmpVec[i].resize(dim);
+        std::map<double, int>::reverse_iterator iter = mapEigen.rbegin();
+        for (int j = 0; iter != mapEigen.rend(), j < dim; ++iter, ++j) {
+            for (int i = 0; i < dim; i++) {
+                pdbTmpVec[i][j] = eigenvectors[i][iter->second];
+            }
+            eigenvalues[j] = iter->first;
+        }
+
+        for (int i = 0; i < dim; i++) {
+            double dSumVec = 0;
+            for (int j = 0; j < dim; j++)
+                dSumVec += pdbTmpVec[j][i];
+            if (dSumVec < 0) {
+                for (int j = 0; j < dim; j++)
+                    pdbTmpVec[j][i] *= -1;
+            }
+        }
+
+        for (int i = 0; i < dim; ++i)
+            for (int j = 0; j < dim; ++j)
+                eigenvectors[i][j] = pdbTmpVec[i][j];
+
+        return true;
+    }
+	
+    /**
      * @brief trace of the Matrix
      * */
     T trace() {
