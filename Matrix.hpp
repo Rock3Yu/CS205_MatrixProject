@@ -887,6 +887,8 @@ template<typename T>
 struct element {
     int row, col;
     T value;
+	
+    element() : row(0), col(0), value(0) {}
 
     element(int row, int col, T value) : row(row), col(col), value(value) {}
 
