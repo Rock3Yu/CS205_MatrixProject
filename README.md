@@ -10,7 +10,7 @@ This is the final project of CS205 C/C++ course.
 
    ~~删除线的示例：任务完成后请使用~~
 
-   * 特征向量、特征值函数（余坤屹）
+   * ~~特征向量、特征值函数~~（余坤屹）
 
    * ~~class spareMatrix的完善~~（余坤屹）
 
@@ -20,6 +20,6 @@ This is the final project of CS205 C/C++ course.
 
    * ~~testCV.cpp：使用OpenCV调用我们的matrix库，转换几张图片~~（林沛君）
     
-   * 命令行交互的一个cilent.cpp（余坤屹）
+   * ~~命令行交互的一个cilent.cpp~~（余坤屹）
     
    * 准备周末答辩（）
