@@ -694,27 +694,24 @@ public:
      */
     Matrix<T> reshape(int row, int column)
     {
-        Matrix<T> output(row, column);
+
         if (this->rows * this->cols != row * column)
         {
             cout << "The parameter is not valid!";
-            return output;
+            return Matrix<T>(0, 0);
         }
-        
-        int row_count = 0, col_count = 0;
-        for (int i = 0; i < this->rows; i++)
+        Matrix<T> output(row, column);
+        int count = 0;
+        while (count < row * column)
         {
-            for (int j = 0; j < this->cols; j++)
-            {
-                if (col_count == column)
-                {
-                    col_count = 0;
-                    row_count++;
-                }
-                output.matrix[i][j] = this->matrix[row_count][col_count];
-                col_count++;
-            }
+            T i = count / this->cols;
+            T j = count % this->cols;
+            T ii = count / column;
+            T jj = count % column;
+            output.matrix[ii][jj] = this->matrix[i][j];
+            count++;
         }
+
         return output;
     }
 
