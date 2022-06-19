@@ -376,11 +376,13 @@ public:
         T max;
         if (!axis) {
             if (num >= rows) cerr << "error in function: T max(int num, bool axis);" << endl;
+		return 0;
             // note: max in row(num)
             max = matrix[num][0];
             for (int i = 0; i < cols; ++i) if (max < matrix[num][i]) max = matrix[num][i];
         } else {
             if (num >= cols) cerr << "error in function: T max(int num, bool axis);" << endl;
+		return 0;
             // note: max in col(num)
             max = matrix[0][num];
             for (int i = 0; i < rows; ++i) if (max < matrix[i][num]) max = matrix[i][num];
@@ -396,11 +398,13 @@ public:
         T min;
         if (!axis) {
             if (num >= rows) cerr << "error in function: T min(int num, bool axis);" << endl;
+		return 0;
             // note: max in row(num)
             min = matrix[num][0];
             for (int i = 0; i < cols; ++i) if (min > matrix[num][i]) min = matrix[num][i];
         } else {
             if (num >= cols) cerr << "error in function: T min(int num, bool axis);" << endl;
+		return 0;
             // note: max in col(num)
             min = matrix[0][num];
             for (int i = 0; i < rows; ++i) if (min > matrix[i][num]) min = matrix[i][num];
@@ -430,11 +434,13 @@ public:
         T sum;
         if (!axis) {
             if (num >= rows) cerr << "error in function: T sum(int num, bool axis);" << endl;
+		return 0;
             // note: sum in row(num)
             sum = matrix[num][0];
             for (int i = 1; i < cols; ++i) sum += matrix[num][i];
         } else {
             if (num >= cols) cerr << "error in function: T sum(int num, bool axis);" << endl;
+		return 0;
             // note: sum in col(num)
             sum = matrix[0][num];
             for (int i = 1; i < rows; ++i) sum += matrix[i][num];
