@@ -281,8 +281,62 @@ int main() {
                 break;
             }
             case 20:
-            case 21:
-            case 22:
+        {
+            if (vec.empty())
+                cout << "Please first store at least 1 matrix!" << endl;
+            else
+            {
+                cout << "Choose the matrix to be reshaped:" << endl;
+                int a;
+                cin >> a;
+                cout << "Type in the row and column of the matrix after reshaping:" << endl;
+                int x, y;
+                cin >> x;
+                cin >> y;
+                if (a >= 0 && a < vec.size())
+                    cout << vec[a].reshape(x, y) << endl;
+                else
+                    cout << "Out of the bound!";
+            }
+        case 21:
+        {
+            if (vec.empty())
+                cout << "Please first store at least 1 matrix!" << endl;
+            else
+            {
+                cout << "Choose the matrix to be sliced:" << endl;
+                int a;
+                cin >> a;
+                cout << "Type in the starting point:" << endl;
+                int x1, y1;
+                cin >> x1;
+                cin >> y1;
+                cout << "Type in the ending point:" << endl;
+                int x2, y2;
+                cin >> x2;
+                cin >> y2;
+                if (a >= 0 && a < vec.size())
+                    cout << vec[a].slice(x1, x2, y1, y2) << endl;
+                else
+                    cout << "Out of the bound!";
+            }
+        case 22:{
+            if (vec.empty())
+                cout << "Please first store at least 1 matrix!" << endl;
+            else
+            {
+                cout << "Choose the matrix to be convolution:" << endl;
+                int a;
+                cin >> a;
+                cout << "Choose the matrix to convolution:" << endl;
+                int b;
+                cin >> b;
+                if (a >= 0 && a < vec.size())
+                    cout << vec[a].convolution(vec[b]) << endl;
+                else
+                    cout << "Out of the bound!";
+            }
+        }
             default:
                 break;
         }
