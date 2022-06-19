@@ -488,14 +488,15 @@ public:
     /**
      * @brief the actual func calculate the det(A)
      * */
-    T detUtility(vector<vector<T> > v, int n) {
+    T detUtility(vector<vector<T>> v, int n) {
         if (n == 1) { return v[0][0]; }
         T sum = 0;
         for (int i = 0; i < n; ++i) {
-            vector<vector<T> > s;
-            for (int j = 0; j < n - 1; ++j) {
+            vector<vector<T>> s;
+            for (int j = 0; j < n; ++j) {
+                if (i == j) continue;
                 vector<T> temp;
-                for (int k = 0; k < n; ++k) if (j != k) temp.push_back(v[j][k]);
+                for (int k = 1; k < n; ++k) temp.push_back(v[j][k]);
                 s.push_back(temp);
             }
             sum += pow(-1, 0 + i) * v[0][i] * detUtility(s, n - 1);
